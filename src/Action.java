@@ -2,23 +2,76 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Action {
-	public static void crunch(pokemon p1, pokemon p2) {
+	TypeEffective t=new TypeEffective();
+	public void crunch(pokemon p1, pokemon p2) {
 		Random rand=new Random();
-		int y=rand.nextInt(38)+217;
-		int x=(((22*p1.sAttack*95)/p2.sDefense)/50)+(3*y)/255;
-		p2.HP-=x;
+		int z=rand.nextInt(38)+217;
+		double y;
+		if(!p2.monotype) {
+			y=t.effective(9,p2.type1, p2.type2);
+		}
+		else {
+			y=t.effective(9, p2.type1);
+		}
+		double STAB;
+		if(p1.type1==9 || p1.type2==9) {
+			STAB=1.5;
+		}
+		else {
+			STAB=1;
+		}
+		double x=((((22*p1.attack*80)/p2.defense/50)+2)*STAB*y*z)/255;
+		int damage=(int)x;
+		if(y==2||y==4) {
+			System.out.println("It's super effective!");
+		}
+		if(y==0.5) {
+			System.out.println("It's not very effective...");
+		}
+		if(y==0) {
+			System.out.println("It didn't have and effect...");
+		}
+		System.out.println("Did "+ damage+ " damage!");
+		p2.HP-=damage;
+		
 	}
-	public static void surf(pokemon p1, pokemon p2) {
+	public void surf(pokemon p1, pokemon p2) {
 		Random rand=new Random();
-		int y=rand.nextInt(38)+217;
-		int x=(((22*p1.attack*80)/p2.defense)/50)+(2*y)/255;
-		p2.HP-=x;
+		int z=rand.nextInt(38)+217;
+		double y;
+		if(!p2.monotype) {
+			y=t.effective(2,p2.type1, p2.type2);
+		}
+		else {
+			y=t.effective(2, p2.type1);
+		}
+		double STAB;
+		if(p1.type1==2 || p1.type2==2) {
+			STAB=1.5;
+		}
+		else {
+			STAB=1;
+		}
+		double x=((((22*p1.sAttack*90)/p2.sDefense/50)+2)*STAB*y*z)/255;
+		int damage=(int)x;
+		if(y==2||y==4) {
+			System.out.println("It's super effective!");
+		}
+		if(y==0.5) {
+			System.out.println("It's not very effective...");
+		}
+		if(y==0) {
+			System.out.println("It didn't have and effect...");
+		}
+		System.out.println("Did "+ damage+ " damage!");
+		p2.HP-=damage;
 	}
-	public static void nastyPlot(pokemon p1, pokemon p2) {
+	public void nastyPlot(pokemon p1, pokemon p2) {
 		p1.sAttack*=2;
 	}
 
 	public static void main(String[] args) {
+		Action a=new Action();
 		Lucario luke=new Lucario(90,70,110,70,115,70);
 		Lapras lappy=new Lapras(130, 60, 85, 80, 85, 95);
 		pokemon turn=luke;
@@ -35,7 +88,7 @@ public class Action {
 				s=sc.next();
 				s=s.toLowerCase();
 				if(s.compareTo("crunch")==0) {
-					crunch(turn, other);
+					a.crunch(turn, other);
 					if(other.HP<=0) {
 						System.out.println(other.name+" fainted!");
 						break;
@@ -48,7 +101,7 @@ public class Action {
 					System.out.println("It's "+turn.name +"'s turn");
 				}
 				else if(s.compareTo("nastyplot")==0) {
-					nastyPlot(turn, other);
+					a.nastyPlot(turn, other);
 					pokemon temp=turn;
 					turn=other;
 					other=temp;
@@ -57,7 +110,7 @@ public class Action {
 					System.out.println("It's "+turn.name +"'s turn");
 				}
 				else if(s.compareTo("surf")==0) {
-					surf(turn, other);
+					a.surf(turn, other);
 					if(other.HP<=0) {
 						System.out.println(other.name+" fainted!");
 						break;
