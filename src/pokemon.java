@@ -1,6 +1,6 @@
 
 public class pokemon {
-	
+
 	protected int speed;
 	protected int HP;
 	protected int attack;
@@ -11,30 +11,51 @@ public class pokemon {
 	protected boolean monotype;
 	protected int type1;
 	protected int type2;
-	
-	
-	public pokemon(int sped, int hp,int atk,int dfns, int sAttk,int sDef, String nam, int type) {
-		speed=sped;
-		HP=hp;
-		attack=atk;
-		defense=dfns;
-		sAttack=sAttk;
-		sDefense=sDef;
-		name=nam;	
-		type1=type;
-		monotype=true;
-		type2=0;
+
+	public pokemon(int sped, int hp, int atk, int dfns, int sAttk, int sDef, String nam, int type) {
+		speed = sped;
+		HP = hp;
+		attack = atk;
+		defense = dfns;
+		sAttack = sAttk;
+		sDefense = sDef;
+		name = nam;
+		type1 = type;
+		monotype = true;
+		type2 = 0;
 	}
-	public pokemon(int sped, int hp,int atk,int dfns, int sAttk,int sDef, String nam, int typ1, int typ2) {
-		speed=sped;
-		HP=hp;
-		attack=atk;
-		defense=dfns;
-		sAttack=sAttk;
-		sDefense=sDef;
-		name=nam;	
-		type1=typ1;
-		type2=typ2;
-		monotype=false;
+
+	public pokemon(int sped, int hp, int atk, int dfns, int sAttk, int sDef, String nam, int typ1, int typ2) {
+		speed = sped;
+		HP = hp;
+		attack = atk;
+		defense = dfns;
+		sAttack = sAttk;
+		sDefense = sDef;
+		name = nam;
+		type1 = typ1;
+		type2 = typ2;
+		monotype = false;
 	}
+
+	public void showMoves() {
+
+	}
+
+	public void move1(pokemon p) {
+
+	}
+
+	public void move2(pokemon p) {
+
+	}
+
+	public void move3(pokemon p) {
+
+	}
+
+	public void move4(pokemon p) {
+
+	}
+
 }

@@ -609,7 +609,7 @@ public class TypeEffective {
 			case 4:
 				return 1;
 			case 5:
-				return 0;
+				return 1;
 			case 6:
 				return 1;
 			case 7:
@@ -671,7 +671,7 @@ public class TypeEffective {
 			case 15:
 				return 2;
 			case 16:
-				return 0.5;
+				return 1;
 			case 17:
 				return 0.5;
 			case 18:

@@ -14,10 +14,9 @@ public class Team {
 		isTurn=turn;
 	}
 
-	public void changeTurn() {
-		isTurn=(!isTurn);
-	}
+	
 	public int alive() {
+		System.out.println("Available Pokemon:");
 		int x=0;
 		if(pkmn[0]!=null && pkmn[0].HP>0) {
 			System.out.println(pkmn[0].name);
