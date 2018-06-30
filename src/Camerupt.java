@@ -8,17 +8,29 @@ public class Camerupt extends pokemon {
 	public void showMoves() {
 		System.out.println("Flamethrower(1)\tEarthquake(2)\nMagnitude(3)\tFire Blast(4)");
 	}
-	public void move1(pokemon p) {
-		m.flamethrower(this,p);
+	public String showMove1() {
+		return "Flamethrower";
 	}
-	public void move2(pokemon p) {
-		m.earthquake(this,p);
+	public String showMove2() {
+		return "Earthquake";
 	}
-	public void move3(pokemon p) {
-		m.magnitude(this,p);
+	public String showMove3() {
+		return "Magnitude";
 	}
-	public void move4(pokemon p) {
-		m.fireBlast(this,p);
+	public String showMove4() {
+		return "Fire Blast";
+	}
+	public String move1(pokemon p) {
+		return m.flamethrower(this,p);
+	}
+	public String move2(pokemon p) {
+		return m.earthquake(this,p);
+	}
+	public String move3(pokemon p) {
+		return m.magnitude(this,p);
+	}
+	public String move4(pokemon p) {
+		return m.fireBlast(this,p);
 	}
 
 }

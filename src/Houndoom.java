@@ -9,17 +9,29 @@ public class Houndoom extends pokemon {
 	public void showMoves() {
 		System.out.println("Flamethrower(1)\tCrunch(2)\nNasty Plot(3)\tFire Blast(4)");
 	}
-	public void move2(pokemon p) {
-		m.crunch(this,p);
+	public String showMove1() {
+		return "Flamethrower";
 	}
-	public void move3(pokemon p) {
-		m.nastyPlot(this,p);
+	public String showMove2() {
+		return "Crunch";
 	}
-	public void move1(pokemon p) {
-		m.flamethrower(this,p);
+	public String showMove3() {
+		return "Nasty Plot";
 	}
-	public void move4(pokemon p) {
-		m.fireBlast(this,p);
+	public String showMove4() {
+		return "Fire Blast";
+	}
+	public String move2(pokemon p) {
+		return m.crunch(this,p);
+	}
+	public String move3(pokemon p) {
+		return m.nastyPlot(this,p);
+	}
+	public String move1(pokemon p) {
+		return m.flamethrower(this,p);
+	}
+	public String move4(pokemon p) {
+		return m.fireBlast(this,p);
 	}
 
 }

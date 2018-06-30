@@ -7,18 +7,29 @@ public class Golem extends pokemon {
 	public void showMoves() {
 		System.out.println("Earthquake(1)\tRock Slide(2)\nCrunch(3)\tMagnitude(4)");
 	}
-	
-	public void move1(pokemon p) {
-		m.earthquake(this,p);
+	public String showMove1() {
+		return "Earthquake";
 	}
-	public void move2(pokemon p) {
-		m.rockSlide(this,p);
+	public String showMove2() {
+		return "Rock Slide";
 	}
-	public void move3(pokemon p) {
-		m.crunch(this,p);
+	public String showMove3() {
+		return "Crunch";
 	}
-	public void move4(pokemon p) {
-		m.magnitude(this,p);
+	public String showMove4() {
+		return "Magnitude";
+	}
+	public String move1(pokemon p) {
+		return m.earthquake(this,p);
+	}
+	public String move2(pokemon p) {
+		return m.rockSlide(this,p);
+	}
+	public String move3(pokemon p) {
+		return m.crunch(this,p);
+	}
+	public String move4(pokemon p) {
+		return m.magnitude(this,p);
 	}
 
 	

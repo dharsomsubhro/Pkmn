@@ -8,17 +8,37 @@ public class Lucario extends pokemon {
 	public void showMoves() {
 		System.out.println("Crunch(1)\tNasty Plot(2)\nAura Sphere(3)\tFlash Cannon(4)");
 	}
-	public void move1(pokemon p) {
-		m.crunch(this,p);
+	public String showMove1() {
+		return "Crunch";
 	}
-	public void move2(pokemon p) {
-		m.nastyPlot(this,p);
+	public String showMove2() {
+		return "Nasty Plot";
 	}
-	public void move3(pokemon p) {
-		m.auraSphere(this,p);
+	public String showMove3() {
+		return "Aura Sphere";
 	}
-	public void move4(pokemon p) {
-		m.flashCannon(this,p);
+	public String showMove4() {
+		return "Flash Cannon";
+	}
+	public String move1(pokemon p) {
+		String s="";
+		s+=m.crunch(this,p);
+		return s;
+	}
+	public String move2(pokemon p) {
+		String s="";
+		s+=m.nastyPlot(this,p);
+		return s;
+	}
+	public String move3(pokemon p) {
+		String s="";
+		s+=m.auraSphere(this,p);
+		return s;
+	}
+	public String move4(pokemon p) {
+		String s="";
+		s+=m.flashCannon(this,p);
+		return s;
 	}
 
 }

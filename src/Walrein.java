@@ -9,17 +9,29 @@ public class Walrein extends pokemon {
 	public void showMoves() {
 		System.out.println("Surf(1)\tIce Beam(2)\nWaterfall(3)\tThunder Wave(4)");
 	}
-	public void move1(pokemon p) {
-		m.surf(this,p);
+	public String showMove1() {
+		return "Surf";
 	}
-	public void move2(pokemon p) {
-		m.iceBeam(this,p);
+	public String showMove2() {
+		return "Ice Beam";
 	}
-	public void move3(pokemon p) {
-		m.waterfall(this,p);
+	public String showMove3() {
+		return "Waterfall";
 	}
-	public void move4(pokemon p) {
-		m.tWave(this,p);
+	public String showMove4() {
+		return "Thunder Wave";
+	}
+	public String move1(pokemon p) {
+		return m.surf(this,p);
+	}
+	public String move2(pokemon p) {
+		return m.iceBeam(this,p);
+	}
+	public String move3(pokemon p) {
+		return m.waterfall(this,p);
+	}
+	public String move4(pokemon p) {
+		return m.tWave(this,p);
 	}
 
 }
