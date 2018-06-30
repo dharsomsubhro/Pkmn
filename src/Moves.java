@@ -373,7 +373,7 @@ public class Moves {
 	public String tWave(pokemon p1, pokemon p2) {
 		String s="<html>"+p1.name+ " used Thunder Wave!<br>";
 		p2.speed /= 2;
-		s+=p1.name+ " is paralyzed!</html>";
+		s+=p2.name+ " is paralyzed!</html>";
 		return s;
 	}
 
