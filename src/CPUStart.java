@@ -1,10 +1,6 @@
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
-public class ButtonBattle {
+public class CPUStart {
 
 	
 	public static void main(String[] args) {
@@ -23,8 +19,9 @@ public class ButtonBattle {
 		pokemon p1 = t1.pkmn[0];
 		pokemon p2 = t2.pkmn[0];
 		//Starting the first fight
-		ButtonFight b = new ButtonFight(p1, p2, t1, t2);
-		b.setVisible(true);
+		JOptionPane.showMessageDialog(null, "Pick a pokemon to start with");
+		CPUSwitch s=new CPUSwitch(t1,null,t2,p2,true,0);
+		s.setVisible(true);
 		
 	}
 }

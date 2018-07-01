@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -37,9 +38,18 @@ public class ButtonFight extends JFrame implements ActionListener {
 	Image cam = null;
 	Image gol = null;
 	Image back = null;
+	Image onepk=null;
+	Image twopk=null;
+	Image threepk=null;
 
 	JLabel tPicLabel;
 	JLabel oPicLabel;
+	
+	JProgressBar topHP;
+	JProgressBar botHP;
+
+	JLabel topPK;
+	JLabel botPK;
 
 	// Pokemon information
 	pokemon turn;
@@ -50,6 +60,9 @@ public class ButtonFight extends JFrame implements ActionListener {
 
 	Team turnTeam;
 	Team otherTeam;
+	
+	Team team1;
+	Team team2;
 
 	SwitchScreen s;
 
@@ -68,6 +81,9 @@ public class ButtonFight extends JFrame implements ActionListener {
 			hou = ImageIO.read(getClass().getResource("icons/250px-229Houndoom.png"));
 			back = ImageIO.read(getClass().getResource("icons/background.jpg"));
 			this.setContentPane(new JLabel(new ImageIcon(back)));
+			onepk=ImageIO.read(getClass().getResource("icons/1.png"));
+			twopk=ImageIO.read(getClass().getResource("icons/2.png"));
+			threepk=ImageIO.read(getClass().getResource("icons/3.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,7 +104,11 @@ public class ButtonFight extends JFrame implements ActionListener {
 			t1 = other.name;
 			turnTeam = te2;
 			otherTeam = te1;
+			
 		}
+		team1=te1;
+		team2=te2;
+		
 		// Getting the right icons for pokemon
 		if (turn.name.compareTo("Lucario") == 0) {
 			turnImage = (new ImageIcon(luc));
@@ -132,14 +152,16 @@ public class ButtonFight extends JFrame implements ActionListener {
 		setSize(1000, 1000);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		label = new JLabel("What should " + turn.name + " do?");
+		
 		turnLabel = new JLabel(turn.name + ": " + turn.HP + "/" + turn.maxHP + " HP");
 		otherLabel = new JLabel(other.name + ": " + other.HP + "/" + other.maxHP + " HP");
 		eventLabel = new JLabel("");
 		eventLabel.setFont(new Font("Serif", Font.BOLD, 24));
 		eventLabel.setBounds(400, 520, 400, 100);
 		label.setFont(new Font("Serif", Font.BOLD, 26));
-		label.setBounds(350, 650, 400, 40);
+		label.setBounds(350, 650, 400, 100);
 		turnLabel.setFont(new Font("Serif", Font.BOLD, 26));
 		turnLabel.setBounds(650, 400, 350, 35);
 		otherLabel.setFont(new Font("Serif", Font.BOLD, 26));
@@ -179,6 +201,38 @@ public class ButtonFight extends JFrame implements ActionListener {
 		oPicLabel = new JLabel(otherImage);
 		oPicLabel.setBounds(500, 0, 500, 350);
 		this.add(oPicLabel);
+		botHP=new JProgressBar(0,turn.maxHP);
+		botHP.setBounds(650, 450, 250, 35);
+		botHP.setValue(turn.HP);
+		botHP.setStringPainted(true);
+		this.add(botHP);
+		topHP=new JProgressBar(0,other.maxHP);
+		topHP.setBounds(100, 150, 250, 35);
+		topHP.setValue(other.HP);
+		topHP.setStringPainted(true);
+		this.add(topHP);
+		if(turnTeam.alive()==3) {
+			botPK=new JLabel(new ImageIcon(threepk));
+		}
+		else if(turnTeam.alive()==2) {
+			botPK=new JLabel(new ImageIcon(twopk));
+		}
+		else {
+			botPK=new JLabel(new ImageIcon(onepk));
+		}
+		if(otherTeam.alive()==3) {
+			topPK=new JLabel(new ImageIcon(threepk));
+		}
+		else if(otherTeam.alive()==2) {
+			topPK=new JLabel(new ImageIcon(twopk));
+		}
+		else {
+			topPK=new JLabel(new ImageIcon(onepk));
+		}
+		botPK.setBounds(650, 350, 250, 35);
+		topPK.setBounds(100,50,250,35);
+		this.add(botPK);
+		this.add(topPK);
 
 	}
 
@@ -218,8 +272,10 @@ public class ButtonFight extends JFrame implements ActionListener {
 			// First move
 			if (e.getSource() == fightButton1) {
 				eventLabel.setText(turn.move1(other));
+				
 				// if pokemon fainted
 				if (other.HP <= 0) {
+					topHP.setValue(0);
 					// if no more pokemon left
 					if (otherTeam.alive() == 0) {
 						if (other.name.compareTo(t1) == 0) {
@@ -236,18 +292,24 @@ public class ButtonFight extends JFrame implements ActionListener {
 					s.setVisible(true);
 					dispose();
 
-				} else {
-					pokemon temp = turn;
-					turn = other;
-					other = temp;
-				}
+				} 
+				pokemon temp = turn;
+				turn = other;
+				other = temp;
+				botHP.setMaximum(turn.maxHP);
+				topHP.setMaximum(other.maxHP);
+				botHP.setValue(turn.HP);
+				topHP.setValue(other.HP);
+				
+				
+				
 				ImageIcon tempi = turnImage;
 				turnImage = otherImage;
 				otherImage = tempi;
 				tPicLabel.setIcon(turnImage);
 				oPicLabel.setIcon(otherImage);
-				turnTeam.isTurn = !turnTeam.isTurn;
-				otherTeam.isTurn = !otherTeam.isTurn;
+				team1.isTurn = !team1.isTurn;
+				team2.isTurn = !team2.isTurn;
 				Team temp2 = turnTeam;
 				turnTeam = otherTeam;
 				otherTeam = temp2;
@@ -258,13 +320,15 @@ public class ButtonFight extends JFrame implements ActionListener {
 				bagButton3.setText("Bag");
 				runButton4.setText("Run");
 				label.setText("What should " + turn.name + " do?");
-				label.setBounds(350, 650, 400, 40);
+				
+				label.setBounds(350, 650, 400, 100);
 				turnLabel.setText(turn.name + ": " + turn.HP + "/" + turn.maxHP + " HP");
 				otherLabel.setText(other.name + ": " + other.HP + "/" + other.maxHP + " HP");
 
 			} else if (e.getSource() == pkmnButton2) {
 				eventLabel.setText(turn.move2(other));
 				if (other.HP <= 0) {
+					topHP.setValue(0);
 					if (otherTeam.alive() == 0) {
 						if (other.name.compareTo(t1) == 0) {
 							JOptionPane.showMessageDialog(null, other.name + " fainted!\nPlayer 2 wins!");
@@ -278,11 +342,17 @@ public class ButtonFight extends JFrame implements ActionListener {
 					s.setVisible(true);
 					dispose();
 
-				} else {
-					pokemon temp = turn;
-					turn = other;
-					other = temp;
-				}
+				} 
+				pokemon temp = turn;
+				turn = other;
+				other = temp;
+				botHP.setMaximum(turn.maxHP);
+				topHP.setMaximum(other.maxHP);
+				botHP.setValue(turn.HP);
+				topHP.setValue(other.HP);
+				
+				
+				
 				ImageIcon tempi = turnImage;
 				turnImage = otherImage;
 				otherImage = tempi;
@@ -299,7 +369,7 @@ public class ButtonFight extends JFrame implements ActionListener {
 
 				bagButton3.setText("Bag");
 				runButton4.setText("Run");
-				label.setBounds(350, 650, 400, 40);
+				label.setBounds(350, 650, 400, 100);
 				label.setText("What should " + turn.name + " do?");
 				turnLabel.setText(turn.name + ": " + turn.HP + "/" + turn.maxHP + " HP");
 				otherLabel.setText(other.name + ": " + other.HP + "/" + other.maxHP + " HP");
@@ -307,6 +377,7 @@ public class ButtonFight extends JFrame implements ActionListener {
 			} else if (e.getSource() == bagButton3) {
 				eventLabel.setText(turn.move3(other));
 				if (other.HP <= 0) {
+					topHP.setValue(0);
 					if (otherTeam.alive() == 0) {
 						if (other.name.compareTo(t1) == 0) {
 							JOptionPane.showMessageDialog(null, other.name + " fainted!\nPlayer 2 wins!");
@@ -320,11 +391,16 @@ public class ButtonFight extends JFrame implements ActionListener {
 					s.setVisible(true);
 					dispose();
 
-				} else {
-					pokemon temp = turn;
-					turn = other;
-					other = temp;
-				}
+				} 
+				pokemon temp = turn;
+				turn = other;
+				other = temp;
+				botHP.setMaximum(turn.maxHP);
+				topHP.setMaximum(other.maxHP);
+				botHP.setValue(turn.HP);
+				topHP.setValue(other.HP);
+				
+				
 				ImageIcon tempi = turnImage;
 				turnImage = otherImage;
 				otherImage = tempi;
@@ -341,7 +417,7 @@ public class ButtonFight extends JFrame implements ActionListener {
 
 				bagButton3.setText("Bag");
 				runButton4.setText("Run");
-				label.setBounds(350, 650, 400, 40);
+				label.setBounds(350, 650, 400, 100);
 				label.setText("What should " + turn.name + " do?");
 				turnLabel.setText(turn.name + ": " + turn.HP + "/" + turn.maxHP + " HP");
 				otherLabel.setText(other.name + ": " + other.HP + "/" + other.maxHP + "HP");
@@ -349,6 +425,7 @@ public class ButtonFight extends JFrame implements ActionListener {
 			} else if (e.getSource() == runButton4) {
 				eventLabel.setText(turn.move4(other));
 				if (other.HP <= 0) {
+					topHP.setValue(0);
 					if (otherTeam.alive() == 0) {
 						if (other.name.compareTo(t1) == 0) {
 							JOptionPane.showMessageDialog(null, other.name + " fainted!\nPlayer 2 wins!");
@@ -362,11 +439,16 @@ public class ButtonFight extends JFrame implements ActionListener {
 					s.setVisible(true);
 					dispose();
 
-				} else {
-					pokemon temp = turn;
-					turn = other;
-					other = temp;
-				}
+				} 
+				pokemon temp = turn;
+				turn = other;
+				other = temp;
+				botHP.setMaximum(turn.maxHP);
+				topHP.setMaximum(other.maxHP);
+				botHP.setValue(turn.HP);
+				topHP.setValue(other.HP);
+				
+				
 				ImageIcon tempi = turnImage;
 				turnImage = otherImage;
 				otherImage = tempi;
@@ -383,7 +465,7 @@ public class ButtonFight extends JFrame implements ActionListener {
 
 				bagButton3.setText("Bag");
 				runButton4.setText("Run");
-				label.setBounds(350, 650, 400, 40);
+				label.setBounds(350, 650, 400, 100);
 				label.setText("What should " + turn.name + " do?");
 				turnLabel.setText(turn.name + ": " + turn.HP + "/" + turn.maxHP + " HP");
 				otherLabel.setText(other.name + ": " + other.HP + "/" + other.maxHP + " HP");
