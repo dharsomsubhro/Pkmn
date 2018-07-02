@@ -1,8 +1,13 @@
 
 public class Lucario extends pokemon {
 	Moves m=new Moves();
+	
 	public Lucario(int speed, int HP,int attack,int defense, int sAttack,int sDefense) {
 		super(speed, HP, attack, defense, sAttack, sDefense, "Lucario", 7, 17);
+		super.m1=new Move("Crunch", 9, false, 80, true);
+		super.m2=new Move("Nasty Plot", 9, false, 0, false);
+		super.m3=new Move("Aura Sphere", 7, true, 90, false);
+		super.m4=new Move("Flash Cannon", 17, true, 90, false);
 		
 	}
 	public void showMoves() {

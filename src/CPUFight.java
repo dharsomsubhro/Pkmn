@@ -70,6 +70,7 @@ public class CPUFight extends JFrame implements ActionListener {
 	CPUSwitch s;
 
 	boolean mainScreen = true;
+	boolean cont = true;
 	int y;
 
 	public CPUFight(pokemon p1, pokemon p2, Team te1, Team te2, int x) {
@@ -144,11 +145,11 @@ public class CPUFight extends JFrame implements ActionListener {
 		turnLabel = new JLabel(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
 		otherLabel = new JLabel(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
 		firstLabel = new JLabel("");
-		secondLabel=new JLabel("");
+		secondLabel = new JLabel("");
 		firstLabel.setFont(new Font("Serif", Font.BOLD, 24));
 		firstLabel.setBounds(200, 470, 400, 200);
-		secondLabel.setFont(new Font("Serif",Font.BOLD,24));
-		secondLabel.setBounds(600,470,400,200);
+		secondLabel.setFont(new Font("Serif", Font.BOLD, 24));
+		secondLabel.setBounds(600, 470, 400, 200);
 		label.setFont(new Font("Serif", Font.BOLD, 26));
 		label.setBounds(350, 650, 400, 100);
 		turnLabel.setFont(new Font("Serif", Font.BOLD, 26));
@@ -222,27 +223,42 @@ public class CPUFight extends JFrame implements ActionListener {
 
 		if (y == 1) {
 			firstLabel.setText(myPk.move1(otherPk));
+			otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
+			topHP.setValue(otherPk.HP);
 		}
 		if (y == 2) {
 			firstLabel.setText(myPk.move2(otherPk));
+			otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
+			topHP.setValue(otherPk.HP);
 		}
 		if (y == 3) {
 			firstLabel.setText(myPk.move3(otherPk));
+			otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
+			topHP.setValue(otherPk.HP);
 		}
 		if (y == 4) {
 			firstLabel.setText(myPk.move4(otherPk));
+			otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
+			topHP.setValue(otherPk.HP);
 		}
 		if (y == 11) {
 			firstLabel.setText(otherPk.move1(myPk));
+			turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
+			botHP.setValue(myPk.HP);
 		}
 		if (y == 12) {
 			firstLabel.setText(otherPk.move2(myPk));
+			turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
+			botHP.setValue(myPk.HP);
 		}
 		if (y == 13) {
 			firstLabel.setText(otherPk.move3(myPk));
+			turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
+			botHP.setValue(myPk.HP);
 		}
 		if (y == 14) {
 			firstLabel.setText(otherPk.move4(myPk));
+
 		}
 
 	}
@@ -260,7 +276,7 @@ public class CPUFight extends JFrame implements ActionListener {
 				bagButton3.setText(myPk.showMove3());
 				runButton4.setText(myPk.showMove4());
 				mainScreen = false;
-				
+
 			}
 			// Pokemon
 			if (e.getSource() == pkmnButton2) {
@@ -270,7 +286,7 @@ public class CPUFight extends JFrame implements ActionListener {
 				} else if (p != null) {
 					s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, false, 0);
 				} else {
-					int x = b.moveToUse();
+					int x = b.moveToUse(otherPk, myPk);
 					s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, false, x);
 					s.setVisible(true);
 					dispose();
@@ -297,7 +313,7 @@ public class CPUFight extends JFrame implements ActionListener {
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Thinking...");
-					int mov = b.moveToUse();
+					int mov = b.moveToUse(otherPk, myPk);
 					if (myPk.speed > otherPk.speed) {
 						firstLabel.setText(myPk.move1(otherPk));
 						// if pokemon fainted
@@ -313,62 +329,60 @@ public class CPUFight extends JFrame implements ActionListener {
 							JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
 							// getting the switch
 							pokemon next = b.switchTo();
-							JOptionPane.showMessageDialog(null, "The computer sent out "+ next.name+" !");;
+							JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
 							CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
 							f.setVisible(true);
 							dispose();
+							cont = false;
 
-						}
-						otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
-						topHP.setValue(otherPk.HP);
-						if (mov == 11) {
-							secondLabel.setText(otherPk.move1(myPk));
-						}
-						if (mov == 12) {
-							secondLabel.setText(otherPk.move2(myPk));
-						}
-						if (mov == 13) {
-							secondLabel.setText(otherPk.move3(myPk));
-						}
-						if (mov == 14) {
-							secondLabel.setText(otherPk.move4(myPk));
-						}
-						
-						if (myPk.HP <= 0) {
-							botHP.setValue(0);
-							turnLabel.setText(myPk.name + ": " + 0 + "/" + myPk.maxHP + " HP");
-							// if no more pokemon left
-							if (myTeam.alive() == 0) {
-								JOptionPane.showMessageDialog(null, myPk.name + " fainted!\nYou lost!");
-								System.exit(0);
+						} else {
+							otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
+							topHP.setValue(otherPk.HP);
+							if (mov == 11) {
+								secondLabel.setText(otherPk.move1(myPk));
+							} else if (mov == 12) {
+								secondLabel.setText(otherPk.move2(myPk));
+							} else if (mov == 13) {
+								secondLabel.setText(otherPk.move3(myPk));
+							} else {
+								secondLabel.setText(otherPk.move4(myPk));
 							}
-							// if pokemon left
-							JOptionPane.showMessageDialog(null,
-									myPk.name + " fainted!\nWhich pokemon will you replace it with?");
-							// getting the switch
-							s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0);
-							s.setVisible(true);
-							dispose();
+							 
 
+							if (myPk.HP <= 0) {
+								botHP.setValue(0);
+								turnLabel.setText(myPk.name + ": " + 0 + "/" + myPk.maxHP + " HP");
+								// if no more pokemon left
+								if (myTeam.alive() == 0) {
+									JOptionPane.showMessageDialog(null, myPk.name + " fainted!\nYou lost!");
+									System.exit(0);
+								}
+								// if pokemon left
+								JOptionPane.showMessageDialog(null,
+										myPk.name + " fainted!\nWhich pokemon will you replace it with?");
+								// getting the switch
+								s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0);
+								s.setVisible(true);
+								dispose();
+								cont = false;
+
+							}
+							turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
+							botHP.setValue(myPk.HP);
 						}
-						turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
-						botHP.setValue(myPk.HP);
 					} else {
 
 						if (mov == 11) {
 							firstLabel.setText(otherPk.move1(myPk));
-						}
-						if (mov == 12) {
+						} else if (mov == 12) {
 							firstLabel.setText(otherPk.move2(myPk));
-						}
-						if (mov == 13) {
+						} else if (mov == 13) {
 							firstLabel.setText(otherPk.move3(myPk));
-						}
-						if (mov == 14) {
+						} else {
 							firstLabel.setText(otherPk.move4(myPk));
 						}
-						
-						
+						 
+
 						if (myPk.HP <= 0) {
 							botHP.setValue(0);
 							turnLabel.setText(myPk.name + ": " + 0 + "/" + myPk.maxHP + " HP");
@@ -384,35 +398,38 @@ public class CPUFight extends JFrame implements ActionListener {
 							s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0);
 							s.setVisible(true);
 							dispose();
+							cont = false;
 
-						}
-						turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
-						botHP.setValue(myPk.HP);
-						
-						secondLabel.setText(myPk.move1(otherPk));
-						if (otherPk.HP <= 0) {
-							topHP.setValue(0);
-							otherLabel.setText(otherPk.name + ": " + 0 + "/" + otherPk.maxHP + " HP");
-							// if no more pokemon left
-							if (CPUTeam.alive() == 0) {
-								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
-								System.exit(0);
+						} else {
+							turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
+							botHP.setValue(myPk.HP);
+
+							secondLabel.setText(myPk.move1(otherPk));
+							if (otherPk.HP <= 0) {
+								topHP.setValue(0);
+								otherLabel.setText(otherPk.name + ": " + 0 + "/" + otherPk.maxHP + " HP");
+								// if no more pokemon left
+								if (CPUTeam.alive() == 0) {
+									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
+									System.exit(0);
+								}
+								// if pokemon left
+								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
+								// getting the switch
+								pokemon next = b.switchTo();
+								JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
+								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
+								f.setVisible(true);
+								dispose();
+								cont = false;
+
 							}
-							// if pokemon left
-							JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
-							// getting the switch
-							pokemon next = b.switchTo();
-							JOptionPane.showMessageDialog(null, "The computer sent out "+ next.name+" !");;
-							CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
-							f.setVisible(true);
-							dispose();
-
+							otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
+							topHP.setValue(otherPk.HP);
 						}
-						otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
-						topHP.setValue(otherPk.HP);
 					}
 				}
-				mainScreen=true;
+				mainScreen = true;
 				fightButton1.setText("Fight");
 				pkmnButton2.setText("Pokemon");
 
@@ -421,10 +438,7 @@ public class CPUFight extends JFrame implements ActionListener {
 				label.setText("What should " + myPk.name + " do?");
 
 				label.setBounds(350, 650, 400, 100);
-				
 
-				
-				
 			} else if (e.getSource() == pkmnButton2) {
 				pokemon p = b.switchTo();
 				if (p != null) {
@@ -433,10 +447,10 @@ public class CPUFight extends JFrame implements ActionListener {
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Thinking...");
-					int mov = b.moveToUse();
+					int mov = b.moveToUse(otherPk, myPk);
 					if (myPk.speed > otherPk.speed) {
 						firstLabel.setText(myPk.move2(otherPk));
-						
+
 						// if pokemon fainted
 						if (otherPk.HP <= 0) {
 							topHP.setValue(0);
@@ -450,45 +464,47 @@ public class CPUFight extends JFrame implements ActionListener {
 							JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
 							// getting the switch
 							pokemon next = b.switchTo();
-							JOptionPane.showMessageDialog(null, "The computer sent out "+ next.name+" !");
+							JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
 							CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
 							f.setVisible(true);
 							dispose();
-
-						}
-						otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
-						topHP.setValue(otherPk.HP);
-						if (mov == 11) {
-							secondLabel.setText(otherPk.move1(myPk));
-						}
-						if (mov == 12) {
-							secondLabel.setText(otherPk.move2(myPk));
-						}
-						if (mov == 13) {
-							secondLabel.setText(otherPk.move3(myPk));
-						}
-						if (mov == 14) {
-							secondLabel.setText(otherPk.move4(myPk));
-						}
-						if (myPk.HP <= 0) {
-							botHP.setValue(0);
-							turnLabel.setText(myPk.name + ": " + 0 + "/" + myPk.maxHP + " HP");
-							// if no more pokemon left
-							if (myTeam.alive() == 0) {
-								JOptionPane.showMessageDialog(null, myPk.name + " fainted!\nYou lost!");
-								System.exit(0);
+							cont = false;
+						} else {
+							otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
+							topHP.setValue(otherPk.HP);
+							if (mov == 11) {
+								secondLabel.setText(otherPk.move1(myPk));
 							}
-							// if pokemon left
-							JOptionPane.showMessageDialog(null,
-									myPk.name + " fainted!\nWhich pokemon will you replace it with?");
-							// getting the switch
-							s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0);
-							s.setVisible(true);
-							dispose();
-
+							if (mov == 12) {
+								secondLabel.setText(otherPk.move2(myPk));
+							}
+							if (mov == 13) {
+								secondLabel.setText(otherPk.move3(myPk));
+							}
+							if (mov == 14) {
+								secondLabel.setText(otherPk.move4(myPk));
+							}
+							 
+							if (myPk.HP <= 0) {
+								botHP.setValue(0);
+								turnLabel.setText(myPk.name + ": " + 0 + "/" + myPk.maxHP + " HP");
+								// if no more pokemon left
+								if (myTeam.alive() == 0) {
+									JOptionPane.showMessageDialog(null, myPk.name + " fainted!\nYou lost!");
+									System.exit(0);
+								}
+								// if pokemon left
+								JOptionPane.showMessageDialog(null,
+										myPk.name + " fainted!\nWhich pokemon will you replace it with?");
+								// getting the switch
+								s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0);
+								s.setVisible(true);
+								dispose();
+								cont = false;
+							}
+							turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
+							botHP.setValue(myPk.HP);
 						}
-						turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
-						botHP.setValue(myPk.HP);
 					} else {
 
 						if (mov == 11) {
@@ -503,6 +519,7 @@ public class CPUFight extends JFrame implements ActionListener {
 						if (mov == 14) {
 							firstLabel.setText(otherPk.move4(myPk));
 						}
+						 
 						if (myPk.HP <= 0) {
 							botHP.setValue(0);
 							turnLabel.setText(myPk.name + ": " + 0 + "/" + myPk.maxHP + " HP");
@@ -518,35 +535,36 @@ public class CPUFight extends JFrame implements ActionListener {
 							s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0);
 							s.setVisible(true);
 							dispose();
+							cont = false;
+						} else {
+							turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
+							botHP.setValue(myPk.HP);
 
-						}
-						turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
-						botHP.setValue(myPk.HP);
-						
-						secondLabel.setText(myPk.move2(otherPk));
-						if (otherPk.HP <= 0) {
-							topHP.setValue(0);
-							otherLabel.setText(otherPk.name + ": " + 0 + "/" + otherPk.maxHP + " HP");
-							// if no more pokemon left
-							if (CPUTeam.alive() == 0) {
-								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
-								System.exit(0);
+							secondLabel.setText(myPk.move2(otherPk));
+							if (otherPk.HP <= 0) {
+								topHP.setValue(0);
+								otherLabel.setText(otherPk.name + ": " + 0 + "/" + otherPk.maxHP + " HP");
+								// if no more pokemon left
+								if (CPUTeam.alive() == 0) {
+									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
+									System.exit(0);
+								}
+								// if pokemon left
+								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
+								// getting the switch
+								pokemon next = b.switchTo();
+								JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
+								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
+								f.setVisible(true);
+								dispose();
+								cont = false;
 							}
-							// if pokemon left
-							JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
-							// getting the switch
-							pokemon next = b.switchTo();
-							JOptionPane.showMessageDialog(null, "The computer sent out "+ next.name+" !");;
-							CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
-							f.setVisible(true);
-							dispose();
-
+							otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
+							topHP.setValue(otherPk.HP);
 						}
-						otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
-						topHP.setValue(otherPk.HP);
 					}
 				}
-				mainScreen=true;
+				mainScreen = true;
 				fightButton1.setText("Fight");
 				pkmnButton2.setText("Pokemon");
 
@@ -555,7 +573,7 @@ public class CPUFight extends JFrame implements ActionListener {
 				label.setText("What should " + myPk.name + " do?");
 
 				label.setBounds(350, 650, 400, 100);
-				
+
 			}
 			if (e.getSource() == bagButton3) {
 				pokemon p = b.switchTo();
@@ -565,7 +583,7 @@ public class CPUFight extends JFrame implements ActionListener {
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Thinking...");
-					int mov = b.moveToUse();
+					int mov = b.moveToUse(otherPk, myPk);
 					if (myPk.speed > otherPk.speed) {
 						firstLabel.setText(myPk.move3(otherPk));
 						// if pokemon fainted
@@ -581,45 +599,47 @@ public class CPUFight extends JFrame implements ActionListener {
 							JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
 							// getting the switch
 							pokemon next = b.switchTo();
-							JOptionPane.showMessageDialog(null, "The computer sent out "+ next.name+" !");
+							JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
 							CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
 							f.setVisible(true);
 							dispose();
-
-						}
-						otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
-						topHP.setValue(otherPk.HP);
-						if (mov == 11) {
-							secondLabel.setText(otherPk.move1(myPk));
-						}
-						if (mov == 12) {
-							secondLabel.setText(otherPk.move2(myPk));
-						}
-						if (mov == 13) {
-							secondLabel.setText(otherPk.move3(myPk));
-						}
-						if (mov == 14) {
-							secondLabel.setText(otherPk.move4(myPk));
-						}
-						if (myPk.HP <= 0) {
-							botHP.setValue(0);
-							turnLabel.setText(myPk.name + ": " + 0 + "/" + myPk.maxHP + " HP");
-							// if no more pokemon left
-							if (myTeam.alive() == 0) {
-								JOptionPane.showMessageDialog(null, myPk.name + " fainted!\nYou lost!");
-								System.exit(0);
+							cont = false;
+						} else {
+							otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
+							topHP.setValue(otherPk.HP);
+							if (mov == 11) {
+								secondLabel.setText(otherPk.move1(myPk));
 							}
-							// if pokemon left
-							JOptionPane.showMessageDialog(null,
-									myPk.name + " fainted!\nWhich pokemon will you replace it with?");
-							// getting the switch
-							s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0);
-							s.setVisible(true);
-							dispose();
-
+							if (mov == 12) {
+								secondLabel.setText(otherPk.move2(myPk));
+							}
+							if (mov == 13) {
+								secondLabel.setText(otherPk.move3(myPk));
+							}
+							if (mov == 14) {
+								secondLabel.setText(otherPk.move4(myPk));
+							}
+							 
+							if (myPk.HP <= 0) {
+								botHP.setValue(0);
+								turnLabel.setText(myPk.name + ": " + 0 + "/" + myPk.maxHP + " HP");
+								// if no more pokemon left
+								if (myTeam.alive() == 0) {
+									JOptionPane.showMessageDialog(null, myPk.name + " fainted!\nYou lost!");
+									System.exit(0);
+								}
+								// if pokemon left
+								JOptionPane.showMessageDialog(null,
+										myPk.name + " fainted!\nWhich pokemon will you replace it with?");
+								// getting the switch
+								s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0);
+								s.setVisible(true);
+								dispose();
+								cont = false;
+							}
+							turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
+							botHP.setValue(myPk.HP);
 						}
-						turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
-						botHP.setValue(myPk.HP);
 					} else {
 
 						if (mov == 11) {
@@ -634,6 +654,7 @@ public class CPUFight extends JFrame implements ActionListener {
 						if (mov == 14) {
 							firstLabel.setText(otherPk.move4(myPk));
 						}
+						 
 						if (myPk.HP <= 0) {
 							botHP.setValue(0);
 							turnLabel.setText(myPk.name + ": " + 0 + "/" + myPk.maxHP + " HP");
@@ -649,37 +670,37 @@ public class CPUFight extends JFrame implements ActionListener {
 							s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0);
 							s.setVisible(true);
 							dispose();
+							cont = false;
+						} else {
+							turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
+							botHP.setValue(myPk.HP);
 
-						}
-						turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
-						botHP.setValue(myPk.HP);
-						
-						secondLabel.setText(myPk.move3(otherPk));
-						if (otherPk.HP <= 0) {
-							topHP.setValue(0);
-							otherLabel.setText(otherPk.name + ": " + 0 + "/" + otherPk.maxHP + " HP");
-							// if no more pokemon left
-							if (CPUTeam.alive() == 0) {
-								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
-								System.exit(0);
+							secondLabel.setText(myPk.move3(otherPk));
+							if (otherPk.HP <= 0) {
+								topHP.setValue(0);
+								otherLabel.setText(otherPk.name + ": " + 0 + "/" + otherPk.maxHP + " HP");
+								// if no more pokemon left
+								if (CPUTeam.alive() == 0) {
+									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
+									System.exit(0);
+								}
+								// if pokemon left
+								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
+								// getting the switch
+								pokemon next = b.switchTo();
+								JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
+								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
+								f.setVisible(true);
+								dispose();
+								cont = false;
 							}
-							// if pokemon left
-							JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
-							// getting the switch
-							pokemon next = b.switchTo();
-							JOptionPane.showMessageDialog(null, "The computer sent out "+ next.name+" !");
-							JOptionPane.showMessageDialog(null, "The computer sent out "+ next.name+" !");;
-							CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
-							f.setVisible(true);
-							dispose();
-
+							otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
+							topHP.setValue(otherPk.HP);
 						}
-						otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
-						topHP.setValue(otherPk.HP);
 					}
-					
+
 				}
-				mainScreen=true;
+				mainScreen = true;
 				fightButton1.setText("Fight");
 				pkmnButton2.setText("Pokemon");
 
@@ -688,7 +709,6 @@ public class CPUFight extends JFrame implements ActionListener {
 				label.setText("What should " + myPk.name + " do?");
 
 				label.setBounds(350, 650, 400, 100);
-				
 
 			}
 			if (e.getSource() == runButton4) {
@@ -699,7 +719,7 @@ public class CPUFight extends JFrame implements ActionListener {
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Thinking...");
-					int mov = b.moveToUse();
+					int mov = b.moveToUse(otherPk, myPk);
 					if (myPk.speed > otherPk.speed) {
 						firstLabel.setText(myPk.move4(otherPk));
 						// if pokemon fainted
@@ -715,45 +735,47 @@ public class CPUFight extends JFrame implements ActionListener {
 							JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
 							// getting the switch
 							pokemon next = b.switchTo();
-							JOptionPane.showMessageDialog(null, "The computer sent out "+ next.name+" !");
+							JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
 							CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
 							f.setVisible(true);
 							dispose();
-
-						}
-						otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
-						topHP.setValue(otherPk.HP);
-						if (mov == 11) {
-							secondLabel.setText(otherPk.move1(myPk));
-						}
-						if (mov == 12) {
-							secondLabel.setText(otherPk.move2(myPk));
-						}
-						if (mov == 13) {
-							secondLabel.setText(otherPk.move3(myPk));
-						}
-						if (mov == 14) {
-							secondLabel.setText(otherPk.move4(myPk));
-						}
-						if (myPk.HP <= 0) {
-							botHP.setValue(0);
-							turnLabel.setText(myPk.name + ": " + 0 + "/" + myPk.maxHP + " HP");
-							// if no more pokemon left
-							if (myTeam.alive() == 0) {
-								JOptionPane.showMessageDialog(null, myPk.name + " fainted!\nYou lost!");
-								System.exit(0);
+							cont = false;
+						} else {
+							otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
+							topHP.setValue(otherPk.HP);
+							if (mov == 11) {
+								secondLabel.setText(otherPk.move1(myPk));
 							}
-							// if pokemon left
-							JOptionPane.showMessageDialog(null,
-									myPk.name + " fainted!\nWhich pokemon will you replace it with?");
-							// getting the switch
-							s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0);
-							s.setVisible(true);
-							dispose();
-
+							if (mov == 12) {
+								secondLabel.setText(otherPk.move2(myPk));
+							}
+							if (mov == 13) {
+								secondLabel.setText(otherPk.move3(myPk));
+							}
+							if (mov == 14) {
+								secondLabel.setText(otherPk.move4(myPk));
+							}
+							 
+							if (myPk.HP <= 0) {
+								botHP.setValue(0);
+								turnLabel.setText(myPk.name + ": " + 0 + "/" + myPk.maxHP + " HP");
+								// if no more pokemon left
+								if (myTeam.alive() == 0) {
+									JOptionPane.showMessageDialog(null, myPk.name + " fainted!\nYou lost!");
+									System.exit(0);
+								}
+								// if pokemon left
+								JOptionPane.showMessageDialog(null,
+										myPk.name + " fainted!\nWhich pokemon will you replace it with?");
+								// getting the switch
+								s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0);
+								s.setVisible(true);
+								dispose();
+								cont = false;
+							}
+							turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
+							botHP.setValue(myPk.HP);
 						}
-						turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
-						botHP.setValue(myPk.HP);
 					} else {
 
 						if (mov == 11) {
@@ -768,6 +790,7 @@ public class CPUFight extends JFrame implements ActionListener {
 						if (mov == 14) {
 							firstLabel.setText(otherPk.move4(myPk));
 						}
+						 
 						if (myPk.HP <= 0) {
 							botHP.setValue(0);
 							turnLabel.setText(myPk.name + ": " + 0 + "/" + myPk.maxHP + " HP");
@@ -783,44 +806,45 @@ public class CPUFight extends JFrame implements ActionListener {
 							s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0);
 							s.setVisible(true);
 							dispose();
+							cont = false;
+						} else {
+							turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
+							botHP.setValue(myPk.HP);
 
-						}
-						turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
-						botHP.setValue(myPk.HP);
-						
-						secondLabel.setText(myPk.move4(otherPk));
-						if (otherPk.HP <= 0) {
-							topHP.setValue(0);
-							otherLabel.setText(otherPk.name + ": " + 0 + "/" + otherPk.maxHP + " HP");
-							// if no more pokemon left
-							if (CPUTeam.alive() == 0) {
-								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
-								System.exit(0);
+							secondLabel.setText(myPk.move4(otherPk));
+							if (otherPk.HP <= 0) {
+								topHP.setValue(0);
+								otherLabel.setText(otherPk.name + ": " + 0 + "/" + otherPk.maxHP + " HP");
+								// if no more pokemon left
+								if (CPUTeam.alive() == 0) {
+									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
+									System.exit(0);
+								}
+								// if pokemon left
+								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
+								// getting the switch
+								pokemon next = b.switchTo();
+								JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
+								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
+								f.setVisible(true);
+								dispose();
+								cont = false;
 							}
-							// if pokemon left
-							JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
-							// getting the switch
-							pokemon next = b.switchTo();
-							JOptionPane.showMessageDialog(null, "The computer sent out "+ next.name+" !");
-							CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
-							f.setVisible(true);
-							dispose();
-
+							otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
+							topHP.setValue(otherPk.HP);
 						}
-						otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
-						topHP.setValue(otherPk.HP);
 					}
 				}
-				mainScreen=true;
+				mainScreen = true;
 				fightButton1.setText("Fight");
 				pkmnButton2.setText("Pokemon");
 
 				bagButton3.setText("Bag");
 				runButton4.setText("Run");
 				label.setText("What should " + myPk.name + " do?");
-				
+
 				label.setBounds(350, 650, 400, 100);
-				
+
 			}
 
 		}

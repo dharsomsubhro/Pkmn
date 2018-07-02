@@ -12,6 +12,10 @@ public class pokemon {
 	protected int type1;
 	protected int type2;
 	protected int maxHP;
+	Move m1;
+	Move m2;
+	Move m3;
+	Move m4;
 
 	public pokemon(int sped, int hp, int atk, int dfns, int sAttk, int sDef, String nam, int type) {
 		speed = sped;
@@ -76,5 +80,7 @@ public class pokemon {
 	public String move4(pokemon p) {
 		return "";
 	}
+	
+	
 
 }

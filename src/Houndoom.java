@@ -1,10 +1,14 @@
 
 public class Houndoom extends pokemon {
 	Moves m= new Moves();
-
+	
 	public Houndoom(int sped, int hp, int atk, int dfns, int sAttk, int sDef) {
 		super(sped, hp, atk, dfns, sAttk, sDef, "Houndoom", 1, 9);
-		// TODO Auto-generated constructor stub
+		super.m2=new Move("Crunch", 9, true, 80, true);
+		super.m3=new Move("Nasty Plot", 9, true, 0, false);
+		super.m1=new Move("Flamethrower", 1, true, 90, false);
+		super.m4=new Move("Fire Blast", 1, true, 110, false);
+		
 	}
 	public void showMoves() {
 		System.out.println("Flamethrower(1)\tCrunch(2)\nNasty Plot(3)\tFire Blast(4)");

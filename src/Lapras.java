@@ -1,9 +1,13 @@
 
 public class Lapras extends pokemon {
 	Moves m = new Moves();
-
+	
 	public Lapras(int speed, int HP, int attack, int defense, int sAttack, int sDefense) {
 		super(speed, HP, attack, defense, sAttack, sDefense, "Lapras", 2, 5);
+		super.m1=new Move("Surf", 2, true, 90, false);
+		super.m2=new Move("Ice Beam", 5, true, 90, false);
+		super.m3=new Move("Waterfall", 2, true, 85, true);
+		super.m4=new Move("Thunder Wave", 4, false, 0, false);
 	}
 
 	public void showMoves() {
