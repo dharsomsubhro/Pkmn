@@ -20,7 +20,7 @@ public class CPUStart {
 		pokemon p2 = t2.pkmn[0];
 		//Starting the first fight
 		JOptionPane.showMessageDialog(null, "Pick a pokemon to start with");
-		CPUSwitch s=new CPUSwitch(t1,null,t2,p2,true,0);
+		CPUSwitch s=new CPUSwitch(t1,null,t2,p2,true,0,null);
 		s.setVisible(true);
 		
 	}

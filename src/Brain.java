@@ -14,29 +14,465 @@ public class Brain {
 		CPUpokemon = p2;
 	}
 
-	public pokemon switchTo() {
-		pokemon p = null;
-		if (CPUTeam.pkmn[0].HP > 0) {
-			if (CPUpokemon == CPUTeam.pkmn[0]) {
-				return null;
-			}
-			return CPUTeam.pkmn[0];
-		}
-		if (CPUTeam.pkmn[1].HP > 0) {
-			if (CPUpokemon == CPUTeam.pkmn[1]) {
-				return null;
-			}
-			return CPUTeam.pkmn[1];
-		}
-		if (CPUTeam.pkmn[2].HP > 0) {
-			if (CPUpokemon == CPUTeam.pkmn[2]) {
-				return null;
-			}
-			return CPUTeam.pkmn[2];
-		}
+	public pokemon switchTo(pokemon cp, pokemon mp) {
+		int p1rating = 0;
+		int p2rating = 0;
+		int p3rating = 0;
+		double effective = 0;
 
-		return p;
+		/* Calculating p1rating */
+		if (CPUTeam.pkmn[0].monotype) {
+			if (mp.monotype) {
+				effective = t.effective(CPUTeam.pkmn[0].type1, mp.type1);
+				if (effective == 2) {
+					p1rating++;
+				}
+				if (effective == 0.5) {
+					p1rating--;
+				}
+				effective = t.effective(mp.type1, CPUTeam.pkmn[0].type1);
+				if (effective == 2) {
+					p1rating--;
+				}
+				if (effective == 0.5) {
+					p1rating++;
+				}
+			} else {
+				effective = t.effective(CPUTeam.pkmn[0].type1, mp.type1, mp.type2);
+				if (effective == 4) {
+					p1rating += 2;
+				}
+				if (effective == 2) {
+					p1rating++;
+				}
+				if (effective == 0.5) {
+					p1rating--;
+				}
+				if (effective == 0.25) {
+					p1rating -= 2;
+				}
+				effective = t.effective(mp.type1, CPUTeam.pkmn[0].type1);
+				if (effective == 2) {
+					p1rating--;
+				}
+				if (effective == 0.5) {
+					p1rating++;
+				}
+				effective = t.effective(mp.type2, CPUTeam.pkmn[0].type1);
+				if (effective == 2) {
+					p1rating--;
+				}
+				if (effective == 0.5) {
+					p1rating++;
+				}
+			}
+		} else {
+			if (mp.monotype) {
+				effective = t.effective(CPUTeam.pkmn[0].type1, mp.type1);
+				if (effective == 2) {
+					p1rating++;
+				}
+				if (effective == 0.5) {
+					p1rating--;
+				}
+				effective = t.effective(CPUTeam.pkmn[0].type2, mp.type1);
+				if (effective == 2) {
+					p1rating++;
+				}
+				if (effective == 0.5) {
+					p1rating--;
+				}
+				effective = t.effective(mp.type1, CPUTeam.pkmn[0].type1, CPUTeam.pkmn[0].type2);
+				if (effective == 4) {
+					p1rating -= 2;
+				}
+				if (effective == 2) {
+					p1rating--;
+				}
+				if (effective == 0.5) {
+					p1rating++;
+				}
+				if (effective == 0.25) {
+					p1rating += 2;
+				}
+			} else {
+				effective = t.effective(CPUTeam.pkmn[0].type1, mp.type1, mp.type2);
+				if (effective == 4) {
+					p1rating += 2;
+				}
+				if (effective == 2) {
+					p1rating++;
+				}
+				if (effective == 0.5) {
+					p1rating--;
+				}
+				if (effective == 0.25) {
+					p1rating -= 2;
+				}
+				effective = t.effective(CPUTeam.pkmn[0].type2, mp.type1, mp.type2);
+				if (effective == 4) {
+					p1rating += 2;
+				}
+				if (effective == 2) {
+					p1rating++;
+				}
+				if (effective == 0.5) {
+					p1rating--;
+				}
+				if (effective == 0.25) {
+					p1rating -= 2;
+				}
+				effective = t.effective(mp.type1, CPUTeam.pkmn[0].type1, CPUTeam.pkmn[0].type2);
+				if (effective == 4) {
+					p1rating -= 2;
+				}
+				if (effective == 2) {
+					p1rating--;
+				}
+				if (effective == 0.5) {
+					p1rating++;
+				}
+				if (effective == 0.25) {
+					p1rating += 2;
+				}
+				effective = t.effective(mp.type2, CPUTeam.pkmn[0].type1, CPUTeam.pkmn[0].type2);
+				if (effective == 4) {
+					p1rating -= 2;
+				}
+				if (effective == 2) {
+					p1rating--;
+				}
+				if (effective == 0.5) {
+					p1rating++;
+				}
+				if (effective == 0.25) {
+					p1rating += 2;
+				}
+				
+			}
+		}
+		/* Calculating p2rating */
+		if (CPUTeam.pkmn[1].monotype) {
+			if (mp.monotype) {
+				effective = t.effective(CPUTeam.pkmn[1].type1, mp.type1);
+				if (effective == 2) {
+					p2rating++;
+				}
+				if (effective == 0.5) {
+					p2rating--;
+				}
+				effective = t.effective(mp.type1, CPUTeam.pkmn[1].type1);
+				if (effective == 2) {
+					p2rating--;
+				}
+				if (effective == 0.5) {
+					p2rating++;
+				}
+			} else {
+				effective = t.effective(CPUTeam.pkmn[1].type1, mp.type1, mp.type2);
+				if (effective == 4) {
+					p2rating += 2;
+				}
+				if (effective == 2) {
+					p2rating++;
+				}
+				if (effective == 0.5) {
+					p2rating--;
+				}
+				if (effective == 0.25) {
+					p2rating -= 2;
+				}
+				effective = t.effective(mp.type1, CPUTeam.pkmn[1].type1);
+				if (effective == 2) {
+					p2rating--;
+				}
+				if (effective == 0.5) {
+					p2rating++;
+				}
+				effective = t.effective(mp.type2, CPUTeam.pkmn[1].type1);
+				if (effective == 2) {
+					p2rating--;
+				}
+				if (effective == 0.5) {
+					p2rating++;
+				}
+			}
+		} else {
+			if (mp.monotype) {
+				effective = t.effective(CPUTeam.pkmn[1].type1, mp.type1);
+				if (effective == 2) {
+					p2rating++;
+				}
+				if (effective == 0.5) {
+					p2rating--;
+				}
+				effective = t.effective(CPUTeam.pkmn[1].type2, mp.type1);
+				if (effective == 2) {
+					p2rating++;
+				}
+				if (effective == 0.5) {
+					p2rating--;
+				}
+				effective = t.effective(mp.type1, CPUTeam.pkmn[1].type1, CPUTeam.pkmn[1].type2);
+				if (effective == 4) {
+					p2rating -= 2;
+				}
+				if (effective == 2) {
+					p2rating--;
+				}
+				if (effective == 0.5) {
+					p2rating++;
+				}
+				if (effective == 0.25) {
+					p2rating += 2;
+				}
+			} else {
+				effective = t.effective(CPUTeam.pkmn[1].type1, mp.type1, mp.type2);
+				if (effective == 4) {
+					p2rating += 2;
+				}
+				if (effective == 2) {
+					p2rating++;
+				}
+				if (effective == 0.5) {
+					p2rating--;
+				}
+				if (effective == 0.25) {
+					p2rating -= 2;
+				}
+				effective = t.effective(CPUTeam.pkmn[1].type2, mp.type1, mp.type2);
+				if (effective == 4) {
+					p2rating += 2;
+				}
+				if (effective == 2) {
+					p2rating++;
+				}
+				if (effective == 0.5) {
+					p2rating--;
+				}
+				if (effective == 0.25) {
+					p2rating -= 2;
+				}
+				effective = t.effective(mp.type1, CPUTeam.pkmn[1].type1, CPUTeam.pkmn[1].type2);
+				if (effective == 4) {
+					p2rating -= 2;
+				}
+				if (effective == 2) {
+					p2rating--;
+				}
+				if (effective == 0.5) {
+					p2rating++;
+				}
+				if (effective == 0.25) {
+					p2rating += 2;
+				}
+				effective = t.effective(mp.type2, CPUTeam.pkmn[1].type1, CPUTeam.pkmn[1].type2);
+				if (effective == 4) {
+					p2rating -= 2;
+				}
+				if (effective == 2) {
+					p2rating--;
+				}
+				if (effective == 0.5) {
+					p2rating++;
+				}
+				if (effective == 0.25) {
+					p2rating += 2;
+				}
+				
+			}
+		}
+		/* Calculating p3rating */
+		if (CPUTeam.pkmn[2].monotype) {
+			if (mp.monotype) {
+				effective = t.effective(CPUTeam.pkmn[2].type1, mp.type1);
+				if (effective == 2) {
+					p3rating++;
+				}
+				if (effective == 0.5) {
+					p3rating--;
+				}
+				effective = t.effective(mp.type1, CPUTeam.pkmn[2].type1);
+				if (effective == 2) {
+					p3rating--;
+				}
+				if (effective == 0.5) {
+					p3rating++;
+				}
+			} else {
+				effective = t.effective(CPUTeam.pkmn[2].type1, mp.type1, mp.type2);
+				if (effective == 4) {
+					p3rating += 2;
+				}
+				if (effective == 2) {
+					p3rating++;
+				}
+				if (effective == 0.5) {
+					p3rating--;
+				}
+				if (effective == 0.25) {
+					p3rating -= 2;
+				}
+				effective = t.effective(mp.type1, CPUTeam.pkmn[2].type1);
+				if (effective == 2) {
+					p3rating--;
+				}
+				if (effective == 0.5) {
+					p3rating++;
+				}
+				effective = t.effective(mp.type2, CPUTeam.pkmn[2].type1);
+				if (effective == 2) {
+					p3rating--;
+				}
+				if (effective == 0.5) {
+					p3rating++;
+				}
+			}
+		} else {
+			if (mp.monotype) {
+				effective = t.effective(CPUTeam.pkmn[2].type1, mp.type1);
+				if (effective == 2) {
+					p3rating++;
+				}
+				if (effective == 0.5) {
+					p3rating--;
+				}
+				effective = t.effective(CPUTeam.pkmn[2].type2, mp.type1);
+				if (effective == 2) {
+					p3rating++;
+				}
+				if (effective == 0.5) {
+					p3rating--;
+				}
+				effective = t.effective(mp.type1, CPUTeam.pkmn[2].type1, CPUTeam.pkmn[2].type2);
+				if (effective == 4) {
+					p3rating -= 2;
+				}
+				if (effective == 2) {
+					p3rating--;
+				}
+				if (effective == 0.5) {
+					p3rating++;
+				}
+				if (effective == 0.25) {
+					p3rating += 2;
+				}
+			} else {
+				effective = t.effective(CPUTeam.pkmn[2].type1, mp.type1, mp.type2);
+				if (effective == 4) {
+					p3rating += 2;
+				}
+				if (effective == 2) {
+					p3rating++;
+				}
+				if (effective == 0.5) {
+					p3rating--;
+				}
+				if (effective == 0.25) {
+					p3rating -= 2;
+				}
+				effective = t.effective(CPUTeam.pkmn[2].type2, mp.type1, mp.type2);
+				if (effective == 4) {
+					p3rating += 2;
+				}
+				if (effective == 2) {
+					p3rating++;
+				}
+				if (effective == 0.5) {
+					p3rating--;
+				}
+				if (effective == 0.25) {
+					p3rating -= 2;
+				}
+				effective = t.effective(mp.type1, CPUTeam.pkmn[2].type1, CPUTeam.pkmn[2].type2);
+				if (effective == 4) {
+					p3rating -= 2;
+				}
+				if (effective == 2) {
+					p3rating--;
+				}
+				if (effective == 0.5) {
+					p3rating++;
+				}
+				if (effective == 0.25) {
+					p3rating += 2;
+				}
+				effective = t.effective(mp.type2, CPUTeam.pkmn[2].type1, CPUTeam.pkmn[2].type2);
+				if (effective == 4) {
+					p3rating -= 2;
+				}
+				if (effective == 2) {
+					p3rating--;
+				}
+				if (effective == 0.5) {
+					p3rating++;
+				}
+				if (effective == 0.25) {
+					p3rating += 2;
+				}
+				
+			}
+		}
+		pokemon x=null;
+		int p=Math.max(Math.max(p1rating, p2rating), p3rating);
+		int first=0;
+		int second=0;
+		int third=0;
+		if(p==p1rating) {
+			first=0;
+			p=Math.max(p2rating, p3rating);
+			if(p==p2rating) {
+				second=1;
+				third=2;
+			}
+			else {
+				second=2;
+				third=1;
+			}
+		}
+		else if(p==p2rating) {
+			first=1;
+			p=Math.max(p1rating, p3rating);
+			if(p==p1rating) {
+				second=0;
+				third=2;
+			}
+			else {
+				second=2;
+				third=0;
+			}
+		}
+		else {
+			first=2;
+			p=Math.max(p1rating, p2rating);
+			if(p==p2rating) {
+				second=1;
+				third=0;
+			}
+			else {
+				second=0;
+				third=1;
+			}
+		}
+		if(CPUTeam.pkmn[first].HP<=0) {
+			if(CPUTeam.pkmn[second].HP<=0) {
+				x=CPUTeam.pkmn[third];
+			}
+			else {
+				x=CPUTeam.pkmn[second];
+			}
+		}
+		else {
+			x=CPUTeam.pkmn[first];
+		}
+		if(x==cp) {
+			return null;
+		}
+		return x;
+		
 	}
+
+	
 
 	public int moveToUse(pokemon cp, pokemon mp) {
 		int m1rating = 0;
@@ -52,7 +488,7 @@ public class Brain {
 		}
 
 		// Power rating
-		if (cp.m1.power > 0 && cp.m1.power <=50) {
+		if (cp.m1.power > 0 && cp.m1.power <= 50) {
 			m1rating++;
 		} else if (cp.m1.power > 50 && cp.m1.power < 100) {
 			m1rating += 2;
@@ -83,10 +519,10 @@ public class Brain {
 				m1rating -= 3;
 			}
 		}
-		if(cp.sAttack>cp.attack && cp.m1.physical==false) {
+		if (cp.sAttack > cp.attack && cp.m1.physical == false) {
 			m1rating++;
 		}
-		if(cp.attack>cp.sAttack && cp.m1.physical==true) {
+		if (cp.attack > cp.sAttack && cp.m1.physical == true) {
 			m1rating++;
 		}
 
@@ -97,7 +533,7 @@ public class Brain {
 		}
 
 		// Power rating
-		if (cp.m2.power > 0 && cp.m2.power <=50) {
+		if (cp.m2.power > 0 && cp.m2.power <= 50) {
 			m2rating++;
 		} else if (cp.m2.power > 50 && cp.m2.power < 100) {
 			m2rating += 2;
@@ -128,10 +564,10 @@ public class Brain {
 				m2rating -= 3;
 			}
 		}
-		if(cp.sAttack>cp.attack && cp.m2.physical==false) {
+		if (cp.sAttack > cp.attack && cp.m2.physical == false) {
 			m2rating++;
 		}
-		if(cp.attack>cp.sAttack && cp.m2.physical==true) {
+		if (cp.attack > cp.sAttack && cp.m2.physical == true) {
 			m2rating++;
 		}
 		/* Calculating m3rating */
@@ -141,7 +577,7 @@ public class Brain {
 		}
 
 		// Power rating
-		if (cp.m3.power > 0 && cp.m3.power <=50) {
+		if (cp.m3.power > 0 && cp.m3.power <= 50) {
 			m3rating++;
 		} else if (cp.m3.power > 50 && cp.m3.power < 100) {
 			m3rating += 2;
@@ -172,10 +608,10 @@ public class Brain {
 				m3rating -= 3;
 			}
 		}
-		if(cp.sAttack>cp.attack && cp.m3.physical==false) {
+		if (cp.sAttack > cp.attack && cp.m3.physical == false) {
 			m3rating++;
 		}
-		if(cp.attack>cp.sAttack && cp.m3.physical==true) {
+		if (cp.attack > cp.sAttack && cp.m3.physical == true) {
 			m3rating++;
 		}
 
@@ -186,7 +622,7 @@ public class Brain {
 		}
 
 		// Power rating
-		if (cp.m4.power > 0 && cp.m4.power <=50) {
+		if (cp.m4.power > 0 && cp.m4.power <= 50) {
 			m4rating++;
 		} else if (cp.m4.power > 50 && cp.m4.power < 100) {
 			m4rating += 2;
@@ -217,10 +653,10 @@ public class Brain {
 				m4rating -= 3;
 			}
 		}
-		if(cp.sAttack>cp.attack && cp.m4.physical==false) {
+		if (cp.sAttack > cp.attack && cp.m4.physical == false) {
 			m4rating++;
 		}
-		if(cp.attack>cp.sAttack && cp.m4.physical==true) {
+		if (cp.attack > cp.sAttack && cp.m4.physical == true) {
 			m4rating++;
 		}
 
