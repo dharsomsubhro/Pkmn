@@ -57,7 +57,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 		turn = pk1;
 		team2 = t2;
 		other = pk2;
-		ba=b;
+		ba = b;
 		setSize(1000, 1000);
 		p1.setFont(new Font("Serif", Font.BOLD, 26));
 		p2.setFont(new Font("Serif", Font.BOLD, 26));
@@ -207,104 +207,121 @@ public class CPUSwitch extends JFrame implements ActionListener {
 		whole.add(p4);
 		whole.add(p5);
 		whole.add(p6);
-		back.setBounds(380,20,200,50);
-		JPanel bac=new JPanel(null);
+		back.setBounds(380, 20, 200, 50);
+		JPanel bac = new JPanel(null);
 		bac.add(back);
-		this.setLayout(new BoxLayout(getContentPane(),BoxLayout.Y_AXIS));
+		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		add(whole);
 		add(bac);
-		if(pk1==null || ba==null) {
+		if (pk1 == null || ba == null) {
 			back.setEnabled(false);
 		}
-		if(t1.pkmn[0]!=null && t1.pkmn[0].HP<=0) {
+		if (t1.pkmn[0] != null && t1.pkmn[0].HP <= 0) {
 			p1.setEnabled(false);
 		}
-		if(t1.pkmn[1]!=null && t1.pkmn[1].HP<=0) {
+		if (t1.pkmn[1] != null && t1.pkmn[1].HP <= 0) {
 			p2.setEnabled(false);
 		}
-		if(t1.pkmn[2]!=null && t1.pkmn[2].HP<=0) {
+		if (t1.pkmn[2] != null && t1.pkmn[2].HP <= 0) {
 			p3.setEnabled(false);
 		}
-		if(t1.pkmn[3]!=null && t1.pkmn[3].HP<=0) {
+		if (t1.pkmn[3] != null && t1.pkmn[3].HP <= 0) {
 			p4.setEnabled(false);
 		}
-		if(t1.pkmn[4]!=null && t1.pkmn[4].HP<=0) {
+		if (t1.pkmn[4] != null && t1.pkmn[4].HP <= 0) {
 			p5.setEnabled(false);
 		}
-		if(t1.pkmn[5]!=null && t1.pkmn[5].HP<=0) {
+		if (t1.pkmn[5] != null && t1.pkmn[5].HP <= 0) {
 			p6.setEnabled(false);
 		}
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand()=="Back") {
+		if (e.getActionCommand() == "Back") {
 			CPUFight b = new CPUFight(turn, ba, team1, team2, 0);
 			b.setVisible(true);
 			dispose();
-		}
-		else if (e.getActionCommand() == "") {
+		} else if (e.getActionCommand() == "") {
 
 		} else if (e.getSource() == p6) {
-			turn = team1.pkmn[5];
-			if (!dead) {
-				team1.isTurn = !team1.isTurn;
-				team2.isTurn = !team2.isTurn;
+			if (team1.pkmn[5] == turn) {
+				JOptionPane.showMessageDialog(null, turn.name + " is already in battle!");
+			} else {
+				turn = team1.pkmn[5];
+				if (!dead) {
+					team1.isTurn = !team1.isTurn;
+					team2.isTurn = !team2.isTurn;
+				}
+				CPUFight b = new CPUFight(turn, other, team1, team2, y);
+				b.setVisible(true);
+				dispose();
 			}
-			CPUFight b = new CPUFight(turn, other, team1, team2, y);
-			b.setVisible(true);
-			dispose();
-
 		} else if (e.getSource() == p5) {
-			turn = team1.pkmn[4];
-			if (!dead) {
-				team1.isTurn = !team1.isTurn;
-				team2.isTurn = !team2.isTurn;
+			if (team1.pkmn[4] == turn) {
+				JOptionPane.showMessageDialog(null, turn.name + " is already in battle!");
+			} else {
+				turn = team1.pkmn[4];
+				if (!dead) {
+					team1.isTurn = !team1.isTurn;
+					team2.isTurn = !team2.isTurn;
+				}
+				CPUFight b = new CPUFight(turn, other, team1, team2, y);
+				b.setVisible(true);
+				dispose();
 			}
-			CPUFight b = new CPUFight(turn, other, team1, team2, y);
-			b.setVisible(true);
-			dispose();
-
 		} else if (e.getSource() == p4) {
-			turn = team1.pkmn[3];
-			if (!dead) {
-				team1.isTurn = !team1.isTurn;
-				team2.isTurn = !team2.isTurn;
+			if (team1.pkmn[3] == turn) {
+				JOptionPane.showMessageDialog(null, turn.name + " is already in battle!");
+			} else {
+				turn = team1.pkmn[3];
+				if (!dead) {
+					team1.isTurn = !team1.isTurn;
+					team2.isTurn = !team2.isTurn;
+				}
+				CPUFight b = new CPUFight(turn, other, team1, team2, y);
+				b.setVisible(true);
+				dispose();
 			}
-			CPUFight b = new CPUFight(turn, other, team1, team2, y);
-			b.setVisible(true);
-			dispose();
-
 		} else if (e.getSource() == p3) {
-			turn = team1.pkmn[2];
-			if (!dead) {
-				team1.isTurn = !team1.isTurn;
-				team2.isTurn = !team2.isTurn;
+			if (team1.pkmn[2] == turn) {
+				JOptionPane.showMessageDialog(null, turn.name + " is already in battle!");
+			} else {
+				turn = team1.pkmn[2];
+				if (!dead) {
+					team1.isTurn = !team1.isTurn;
+					team2.isTurn = !team2.isTurn;
+				}
+				CPUFight b = new CPUFight(turn, other, team1, team2, y);
+				b.setVisible(true);
+				dispose();
 			}
-			CPUFight b = new CPUFight(turn, other, team1, team2, y);
-			b.setVisible(true);
-			dispose();
-
 		} else if (e.getSource() == p2) {
-			turn = team1.pkmn[1];
-			if (!dead) {
-				team1.isTurn = !team1.isTurn;
-				team2.isTurn = !team2.isTurn;
+			if (team1.pkmn[1] == turn) {
+				JOptionPane.showMessageDialog(null, turn.name + " is already in battle!");
+			} else {
+				turn = team1.pkmn[1];
+				if (!dead) {
+					team1.isTurn = !team1.isTurn;
+					team2.isTurn = !team2.isTurn;
+				}
+				CPUFight b = new CPUFight(turn, other, team1, team2, y);
+				b.setVisible(true);
+				dispose();
 			}
-			CPUFight b = new CPUFight(turn, other, team1, team2, y);
-			b.setVisible(true);
-			dispose();
-
 		} else if (e.getSource() == p1) {
-			turn = team1.pkmn[0];
-			if (!dead) {
-				team1.isTurn = !team1.isTurn;
-				team2.isTurn = !team2.isTurn;
+			if (team1.pkmn[0] == turn) {
+				JOptionPane.showMessageDialog(null, turn.name + " is already in battle!");
+			} else {
+				turn = team1.pkmn[0];
+				if (!dead) {
+					team1.isTurn = !team1.isTurn;
+					team2.isTurn = !team2.isTurn;
+				}
+				CPUFight b = new CPUFight(turn, other, team1, team2, y);
+				b.setVisible(true);
+				dispose();
 			}
-			CPUFight b = new CPUFight(turn, other, team1, team2, y);
-			b.setVisible(true);
-			dispose();
-
 		}
 
 	}

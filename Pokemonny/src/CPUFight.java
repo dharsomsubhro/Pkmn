@@ -341,7 +341,9 @@ public class CPUFight extends JFrame implements ActionListener {
 				if (e.getSource() == pkmnButton2) {
 					pokemon p = b.switchTo(otherPk,myPk);
 					if (myTeam.alive() == 1) {
-						JOptionPane.showMessageDialog(null, "No other pokemon can fight!");
+						s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, false, 0, otherPk);
+						s.setVisible(true);
+						dispose();
 					} else if (p != null) {
 						s = new CPUSwitch(myTeam, myPk, CPUTeam, p, false, 0, otherPk);
 						s.setVisible(true);
@@ -465,7 +467,7 @@ public class CPUFight extends JFrame implements ActionListener {
 								}
 								// if pokemon left
 								JOptionPane.showMessageDialog(null,
-										otherPk.name + " fainted!\nWhich pokemon will you replace it with?");
+										myPk.name + " fainted!\nWhich pokemon will you replace it with?");
 								// getting the switch
 								s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null);
 								s.setVisible(true);

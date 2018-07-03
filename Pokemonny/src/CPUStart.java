@@ -14,8 +14,6 @@ public class CPUStart {
 		//Creating the teams
 		Team t1 = new Team(lappy, cam, han, null, null, null, true);
 		Team t2 = new Team(gman, luke, wally, null, null, null, false);
-		Team turn = t1;
-		Team other = t2;
 		pokemon p1 = t1.pkmn[0];
 		pokemon p2 = t2.pkmn[0];
 		//Starting the first fight
