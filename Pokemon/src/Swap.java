@@ -85,7 +85,7 @@ public class Swap extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 
-		setSize(1000, 1000);
+		setSize(1000, 1100);
 		p1.setFont(new Font("Serif", Font.BOLD, 26));
 		p2.setFont(new Font("Serif", Font.BOLD, 26));
 		p3.setFont(new Font("Serif", Font.BOLD, 26));
@@ -119,9 +119,9 @@ public class Swap extends JFrame implements ActionListener {
 		whole.add(p4);
 		whole.add(p5);
 		whole.add(p6);
-		back.setBounds(290, 20, 200, 50);
-		readyButton.setBounds(490, 20, 200, 50);
-		no.setBounds(380, 75, 200, 50);
+		back.setBounds(290, 0, 200, 50);
+		readyButton.setBounds(490,0, 200, 50);
+		no.setBounds(290, 50, 400, 50);
 
 		JPanel bac = new JPanel(null);
 		bac.add(back);
@@ -159,6 +159,9 @@ public class Swap extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (swap) {
 			if (e.getSource() == no) {
+				team1.pkmn[0].reset();
+				team1.pkmn[1].reset();
+				team1.pkmn[2].reset();
 				CPUFight b = new CPUFight(team1.pkmn[0], team2.pkmn[0], team1, team2, 0, fight + 1);
 				b.setVisible(true);
 				dispose();
@@ -240,6 +243,9 @@ public class Swap extends JFrame implements ActionListener {
 				readyButton.setEnabled(true);
 			}
 			if (e.getSource() == no) {
+				team1.pkmn[0].reset();
+				team1.pkmn[1].reset();
+				team1.pkmn[2].reset();
 				CPUFight b = new CPUFight(team1.pkmn[0], team2.pkmn[0], team1, team2, 0, fight + 1);
 				b.setVisible(true);
 				dispose();
@@ -259,6 +265,8 @@ public class Swap extends JFrame implements ActionListener {
 				setIcon(p1);
 				setIcon(p2);
 				setIcon(p3);
+				swap=true;
+				s2=null;
 			}
 		}
 

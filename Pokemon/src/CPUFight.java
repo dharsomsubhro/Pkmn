@@ -266,6 +266,8 @@ public class CPUFight extends JFrame implements ActionListener {
 		}
 		if (y == 14) {
 			firstLabel.setText(otherPk.move4(myPk));
+			turnLabel.setText(myPk.name + ": " + myPk.HP + "/" + myPk.maxHP + " HP");
+			botHP.setValue(myPk.HP);
 
 		}
 		if (otherPk.HP <= 0) {
@@ -803,16 +805,17 @@ public class CPUFight extends JFrame implements ActionListener {
 										System.exit(0);
 									}
 
+								} else {
+									// if pokemon left
+									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
+									// getting the switch
+									pokemon next = b.switchTo(otherPk, myPk);
+									JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
+									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
+									f.setVisible(true);
+									dispose();
+									cont = false;
 								}
-								// if pokemon left
-								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
-								// getting the switch
-								pokemon next = b.switchTo(otherPk, myPk);
-								JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
-								f.setVisible(true);
-								dispose();
-								cont = false;
 							} else {
 								otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
 								topHP.setValue(otherPk.HP);
@@ -913,16 +916,18 @@ public class CPUFight extends JFrame implements ActionListener {
 											System.exit(0);
 										}
 
+									} else {
+										// if pokemon left
+										JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
+										// getting the switch
+										pokemon next = b.switchTo(otherPk, myPk);
+										JOptionPane.showMessageDialog(null,
+												"The computer sent out " + next.name + " !");
+										CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
+										f.setVisible(true);
+										dispose();
+										cont = false;
 									}
-									// if pokemon left
-									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
-									// getting the switch
-									pokemon next = b.switchTo(otherPk, myPk);
-									JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
-									f.setVisible(true);
-									dispose();
-									cont = false;
 								}
 								otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
 								topHP.setValue(otherPk.HP);
@@ -984,16 +989,17 @@ public class CPUFight extends JFrame implements ActionListener {
 										System.exit(0);
 									}
 
+								} else {
+									// if pokemon left
+									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
+									// getting the switch
+									pokemon next = b.switchTo(otherPk, myPk);
+									JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
+									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
+									f.setVisible(true);
+									dispose();
+									cont = false;
 								}
-								// if pokemon left
-								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
-								// getting the switch
-								pokemon next = b.switchTo(otherPk, myPk);
-								JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
-								f.setVisible(true);
-								dispose();
-								cont = false;
 							} else {
 								otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
 								topHP.setValue(otherPk.HP);
@@ -1094,16 +1100,18 @@ public class CPUFight extends JFrame implements ActionListener {
 											System.exit(0);
 										}
 
+									} else {
+										// if pokemon left
+										JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
+										// getting the switch
+										pokemon next = b.switchTo(otherPk, myPk);
+										JOptionPane.showMessageDialog(null,
+												"The computer sent out " + next.name + " !");
+										CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
+										f.setVisible(true);
+										dispose();
+										cont = false;
 									}
-									// if pokemon left
-									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
-									// getting the switch
-									pokemon next = b.switchTo(otherPk, myPk);
-									JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
-									f.setVisible(true);
-									dispose();
-									cont = false;
 								}
 								otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
 								topHP.setValue(otherPk.HP);

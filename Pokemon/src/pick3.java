@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 
 public class pick3 extends JFrame implements ActionListener {
@@ -31,12 +32,19 @@ public class pick3 extends JFrame implements ActionListener {
 	Houndoom han = new Houndoom(95, 260, 90, 50, 110, 80);
 	Camerupt kam = new Camerupt(40, 250, 100, 70, 105, 75);
 
-	Image luc = null;
-	Image lap = null;
-	Image wal = null;
-	Image hou = null;
-	Image cam = null;
-	Image gol = null;
+	File luc = new File("c:\\Users\\dhars\\Desktop\\Icons\\Lucario.png");
+	File wal = new File("c:\\Users\\dhars\\Desktop\\Icons\\walrein.png");
+	File gol = new File("c:\\Users\\dhars\\Desktop\\Icons\\golem.png");
+	File hou = new File("c:\\Users\\dhars\\Desktop\\Icons\\250px-229Houndoom.png");
+	File lap = new File("c:\\Users\\dhars\\Desktop\\Icons\\250px-131Lapras.png");
+	File cam = new File("c:\\Users\\dhars\\Desktop\\Icons\\Camerupt.png");
+
+	Image lucImage = null;
+	Image walImage = null;
+	Image houImage = null;
+	Image golImage = null;
+	Image lapImage = null;
+	Image camImage = null;
 
 	Team team1;
 	Team team2;
@@ -53,13 +61,14 @@ public class pick3 extends JFrame implements ActionListener {
 		readyButton.setEnabled(false);
 		back.setEnabled(false);
 		y = x;
+
 		try {
-			luc = ImageIO.read(getClass().getResource("/icons/Lucario.png"));
-			lap = ImageIO.read(getClass().getResource("/icons/250px-131Lapras.png"));
-			gol = ImageIO.read(getClass().getResource("/icons/golem.png"));
-			wal = ImageIO.read(getClass().getResource("/icons/walrein.png"));
-			cam = ImageIO.read(getClass().getResource("/icons/Camerupt.png"));
-			hou = ImageIO.read(getClass().getResource("/icons/250px-229Houndoom.png"));
+			lucImage = ImageIO.read(luc);
+			walImage = ImageIO.read(wal);
+			houImage = ImageIO.read(hou);
+			golImage = ImageIO.read(gol);
+			lapImage = ImageIO.read(lap);
+			camImage = ImageIO.read(cam);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,17 +100,17 @@ public class pick3 extends JFrame implements ActionListener {
 		whole = new JPanel(new GridLayout(3, 2));
 
 		p1.setText("Lucario");
-		p1.setIcon(new ImageIcon(luc));
+		p1.setIcon(new ImageIcon(lucImage));
 		p2.setText("Walrein");
-		p2.setIcon(new ImageIcon(wal));
+		p2.setIcon(new ImageIcon(walImage));
 		p3.setText("Camerupt");
-		p3.setIcon(new ImageIcon(cam));
+		p3.setIcon(new ImageIcon(camImage));
 		p4.setText("Houndoom");
-		p4.setIcon(new ImageIcon(hou));
+		p4.setIcon(new ImageIcon(houImage));
 		p5.setText("Golem");
-		p5.setIcon(new ImageIcon(gol));
+		p5.setIcon(new ImageIcon(golImage));
 		p6.setText("Lapras");
-		p6.setIcon(new ImageIcon(lap));
+		p6.setIcon(new ImageIcon(lapImage));
 
 		whole.add(p1);
 		whole.add(p2);
@@ -123,98 +132,121 @@ public class pick3 extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == readyButton) {
-			CPUFight b = new CPUFight(team1.pkmn[0], other, team1, team2, 0, 1);
-			b.setVisible(true);
-			dispose();
-		} else if (e.getActionCommand() == "Back") {
-			if (thirdPick != null) {
-				thirdPick.setEnabled(true);
-				thirdPick = null;
-				readyButton.setEnabled(false);
-			} else {
-				if (secondPick != null) {
-					secondPick.setEnabled(true);
-					secondPick = null;
+		if (readyButton.isEnabled()) {
+			if (e.getSource() == readyButton) {
+				CPUFight b = new CPUFight(team1.pkmn[0], other, team1, team2, 0, 1);
+				b.setVisible(true);
+				dispose();
+			} else if (e.getActionCommand() == "Back") {
+				if (thirdPick != null) {
+					thirdPick.setEnabled(true);
+					thirdPick = null;
+					readyButton.setEnabled(false);
 				} else {
-					firstPick.setEnabled(true);
-					firstPick = null;
-					back.setEnabled(false);
+					if (secondPick != null) {
+						secondPick.setEnabled(true);
+						secondPick = null;
+					} else {
+						firstPick.setEnabled(true);
+						firstPick = null;
+						back.setEnabled(false);
+					}
 				}
+				team1.remove();
 			}
-			team1.remove();
-		} else if (e.getSource() == p6) {
-			p6.setEnabled(false);
-			team1.add(lappy);
-			back.setEnabled(true);
-			if (firstPick == null) {
-				firstPick = p6;
-			} else if (secondPick == null) {
-				secondPick = p6;
-			} else if (thirdPick == null) {
-				thirdPick = p6;
-				readyButton.setEnabled(true);
-			}
-		} else if (e.getSource() == p5) {
-			p5.setEnabled(false);
-			team1.add(gman);
-			back.setEnabled(true);
-			if (firstPick == null) {
-				firstPick = p5;
-			} else if (secondPick == null) {
-				secondPick = p5;
-			} else if (thirdPick == null) {
-				thirdPick = p5;
-				readyButton.setEnabled(true);
-			}
-		} else if (e.getSource() == p4) {
-			p4.setEnabled(false);
-			team1.add(han);
-			back.setEnabled(true);
-			if (firstPick == null) {
-				firstPick = p4;
-			} else if (secondPick == null) {
-				secondPick = p4;
-			} else if (thirdPick == null) {
-				thirdPick = p4;
-				readyButton.setEnabled(true);
-			}
-		} else if (e.getSource() == p3) {
-			p3.setEnabled(false);
-			team1.add(kam);
-			back.setEnabled(true);
-			if (firstPick == null) {
-				firstPick = p3;
-			} else if (secondPick == null) {
-				secondPick = p3;
-			} else if (thirdPick == null) {
-				thirdPick = p3;
-				readyButton.setEnabled(true);
-			}
-		} else if (e.getSource() == p2) {
-			p2.setEnabled(false);
-			team1.add(wally);
-			back.setEnabled(true);
-			if (firstPick == null) {
-				firstPick = p2;
-			} else if (secondPick == null) {
-				secondPick = p2;
-			} else if (thirdPick == null) {
-				thirdPick = p2;
-				readyButton.setEnabled(true);
-			}
-		}
-		else if (e.getSource() == p1) {
-			p1.setEnabled(false);
-			team1.add(luke);
-			back.setEnabled(true);
-			if (firstPick == null) {
-				firstPick = p1;
-			} else if (secondPick == null) {
-				secondPick = p1;
-			} else if (thirdPick == null) {
-				thirdPick = p1;
-				readyButton.setEnabled(true);
+		} else {
+			if (e.getSource() == readyButton) {
+				CPUFight b = new CPUFight(team1.pkmn[0], other, team1, team2, 0, 1);
+				b.setVisible(true);
+				dispose();
+			} else if (e.getActionCommand() == "Back") {
+				if (thirdPick != null) {
+					thirdPick.setEnabled(true);
+					thirdPick = null;
+					readyButton.setEnabled(false);
+				} else {
+					if (secondPick != null) {
+						secondPick.setEnabled(true);
+						secondPick = null;
+					} else {
+						firstPick.setEnabled(true);
+						firstPick = null;
+						back.setEnabled(false);
+					}
+				}
+				team1.remove();
+			} else if (e.getSource() == p6) {
+				p6.setEnabled(false);
+				team1.add(lappy);
+				back.setEnabled(true);
+				if (firstPick == null) {
+					firstPick = p6;
+				} else if (secondPick == null) {
+					secondPick = p6;
+				} else if (thirdPick == null) {
+					thirdPick = p6;
+					readyButton.setEnabled(true);
+				}
+			} else if (e.getSource() == p5) {
+				p5.setEnabled(false);
+				team1.add(gman);
+				back.setEnabled(true);
+				if (firstPick == null) {
+					firstPick = p5;
+				} else if (secondPick == null) {
+					secondPick = p5;
+				} else if (thirdPick == null) {
+					thirdPick = p5;
+					readyButton.setEnabled(true);
+				}
+			} else if (e.getSource() == p4) {
+				p4.setEnabled(false);
+				team1.add(han);
+				back.setEnabled(true);
+				if (firstPick == null) {
+					firstPick = p4;
+				} else if (secondPick == null) {
+					secondPick = p4;
+				} else if (thirdPick == null) {
+					thirdPick = p4;
+					readyButton.setEnabled(true);
+				}
+			} else if (e.getSource() == p3) {
+				p3.setEnabled(false);
+				team1.add(kam);
+				back.setEnabled(true);
+				if (firstPick == null) {
+					firstPick = p3;
+				} else if (secondPick == null) {
+					secondPick = p3;
+				} else if (thirdPick == null) {
+					thirdPick = p3;
+					readyButton.setEnabled(true);
+				}
+			} else if (e.getSource() == p2) {
+				p2.setEnabled(false);
+				team1.add(wally);
+				back.setEnabled(true);
+				if (firstPick == null) {
+					firstPick = p2;
+				} else if (secondPick == null) {
+					secondPick = p2;
+				} else if (thirdPick == null) {
+					thirdPick = p2;
+					readyButton.setEnabled(true);
+				}
+			} else if (e.getSource() == p1) {
+				p1.setEnabled(false);
+				team1.add(luke);
+				back.setEnabled(true);
+				if (firstPick == null) {
+					firstPick = p1;
+				} else if (secondPick == null) {
+					secondPick = p1;
+				} else if (thirdPick == null) {
+					thirdPick = p1;
+					readyButton.setEnabled(true);
+				}
 			}
 		}
 	}
