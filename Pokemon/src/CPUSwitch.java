@@ -14,14 +14,14 @@ import java.io.IOException;
 
 public class CPUSwitch extends JFrame implements ActionListener {
 
-	private JButton p1 = new JButton("");
-	private JButton p2 = new JButton("");
-	private JButton p3 = new JButton("");
-	private JButton p4 = new JButton("");
-	private JButton p5 = new JButton("");
-	private JButton p6 = new JButton("");
-	private JButton back = new JButton("Back");
-	private JPanel whole;
+	public JButton p1 = new JButton("");
+	public JButton p2 = new JButton("");
+	public JButton p3 = new JButton("");
+	public JButton p4 = new JButton("");
+	public JButton p5 = new JButton("");
+	public JButton p6 = new JButton("");
+	public JButton back = new JButton("Back");
+	public JPanel whole;
 
 	Image luc = null;
 	Image lap = null;
@@ -37,16 +37,18 @@ public class CPUSwitch extends JFrame implements ActionListener {
 	pokemon ba;
 	boolean dead;
 	int y;
+	int fight;
 
-	public CPUSwitch(Team t1, pokemon pk1, Team t2, pokemon pk2, boolean ded, int x, pokemon b) {
+	public CPUSwitch(Team t1, pokemon pk1, Team t2, pokemon pk2, boolean ded, int x, pokemon b, int f) {
+		fight=f;
 		y = x;
 		try {
-			luc = ImageIO.read(getClass().getResource("icons/Lucario.png"));
-			lap = ImageIO.read(getClass().getResource("icons/250px-131Lapras.png"));
-			gol = ImageIO.read(getClass().getResource("icons/golem.png"));
-			wal = ImageIO.read(getClass().getResource("icons/walrein.png"));
-			cam = ImageIO.read(getClass().getResource("icons/Camerupt.png"));
-			hou = ImageIO.read(getClass().getResource("icons/250px-229Houndoom.png"));
+			luc = ImageIO.read(getClass().getResource("/icons/Lucario.png"));
+			lap = ImageIO.read(getClass().getResource("/icons/250px-131Lapras.png"));
+			gol = ImageIO.read(getClass().getResource("/icons/golem.png"));
+			wal = ImageIO.read(getClass().getResource("/icons/walrein.png"));
+			cam = ImageIO.read(getClass().getResource("/icons/Camerupt.png"));
+			hou = ImageIO.read(getClass().getResource("/icons/250px-229Houndoom.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -74,6 +76,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 		p6.addActionListener(this);
 		back.addActionListener(this);
 		whole = new JPanel(new GridLayout(3, 2));
+		
 		if (t1.pkmn[0] != null) {
 			p1.setText(t1.pkmn[0].name);
 			if (p1.getText().compareTo("Lucario") == 0) {
@@ -239,7 +242,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == "Back") {
-			CPUFight b = new CPUFight(turn, ba, team1, team2, 0);
+			CPUFight b = new CPUFight(turn, ba, team1, team2, 0, fight);
 			b.setVisible(true);
 			dispose();
 		} else if (e.getActionCommand() == "") {
@@ -253,7 +256,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 					team1.isTurn = !team1.isTurn;
 					team2.isTurn = !team2.isTurn;
 				}
-				CPUFight b = new CPUFight(turn, other, team1, team2, y);
+				CPUFight b = new CPUFight(turn, other, team1, team2, y, fight);
 				b.setVisible(true);
 				dispose();
 			}
@@ -266,7 +269,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 					team1.isTurn = !team1.isTurn;
 					team2.isTurn = !team2.isTurn;
 				}
-				CPUFight b = new CPUFight(turn, other, team1, team2, y);
+				CPUFight b = new CPUFight(turn, other, team1, team2, y, fight);
 				b.setVisible(true);
 				dispose();
 			}
@@ -279,7 +282,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 					team1.isTurn = !team1.isTurn;
 					team2.isTurn = !team2.isTurn;
 				}
-				CPUFight b = new CPUFight(turn, other, team1, team2, y);
+				CPUFight b = new CPUFight(turn, other, team1, team2, y, fight);
 				b.setVisible(true);
 				dispose();
 			}
@@ -292,7 +295,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 					team1.isTurn = !team1.isTurn;
 					team2.isTurn = !team2.isTurn;
 				}
-				CPUFight b = new CPUFight(turn, other, team1, team2, y);
+				CPUFight b = new CPUFight(turn, other, team1, team2, y, fight);
 				b.setVisible(true);
 				dispose();
 			}
@@ -305,7 +308,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 					team1.isTurn = !team1.isTurn;
 					team2.isTurn = !team2.isTurn;
 				}
-				CPUFight b = new CPUFight(turn, other, team1, team2, y);
+				CPUFight b = new CPUFight(turn, other, team1, team2, y, fight);
 				b.setVisible(true);
 				dispose();
 			}
@@ -318,7 +321,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 					team1.isTurn = !team1.isTurn;
 					team2.isTurn = !team2.isTurn;
 				}
-				CPUFight b = new CPUFight(turn, other, team1, team2, y);
+				CPUFight b = new CPUFight(turn, other, team1, team2, y, fight);
 				b.setVisible(true);
 				dispose();
 			}

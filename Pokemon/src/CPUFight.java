@@ -73,8 +73,10 @@ public class CPUFight extends JFrame implements ActionListener {
 	boolean mainScreen = true;
 	boolean cont = true;
 	int y;
+	int fight;
 
-	public CPUFight(pokemon p1, pokemon p2, Team te1, Team te2, int x) {
+	public CPUFight(pokemon p1, pokemon p2, Team te1, Team te2, int x, int fightNum) {
+		fight = fightNum;
 		myPk = p1;
 		otherPk = p2;
 		myTeam = te1;
@@ -161,12 +163,12 @@ public class CPUFight extends JFrame implements ActionListener {
 		pkmnButton2 = new JButton("Pokemon");
 		bagButton3 = new JButton("Bag");
 		runButton4 = new JButton("Run");
-		backButton=new JButton("Back");
+		backButton = new JButton("Back");
 		fightButton1.setBounds(280, 750, 200, 50);
 		pkmnButton2.setBounds(500, 750, 200, 50);
 		bagButton3.setBounds(280, 800, 200, 50);
 		runButton4.setBounds(500, 800, 200, 50);
-		backButton.setBounds(380,870,200,50);
+		backButton.setBounds(380, 870, 200, 50);
 		turnLabel.setForeground(new Color(255, 255, 255));
 		otherLabel.setForeground(new Color(255, 255, 255));
 		otherLabel.setBackground(new Color(255, 255, 255));
@@ -272,11 +274,32 @@ public class CPUFight extends JFrame implements ActionListener {
 			// if no more pokemon left
 			if (CPUTeam.alive() == 0) {
 				JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
-				System.exit(0);
+				if (fight < 4) {
+					if (fight == 1) {
+						JOptionPane.showMessageDialog(null, "On to fight 2!");
+						Swap s = new Swap(myTeam, CPUTeam, fight);
+						s.setVisible(true);
+						dispose();
+					} else if (fight == 2) {
+						JOptionPane.showMessageDialog(null, "On to fight 3!");
+						Swap s = new Swap(myTeam, CPUTeam, fight);
+						s.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "On to fight 4!");
+						Swap s = new Swap(myTeam, CPUTeam, fight);
+						s.setVisible(true);
+						dispose();
+					}
+				} else if (fight == 4) {
+					JOptionPane.showMessageDialog(null, "You've cleared the game!");
+					System.exit(0);
+				}
+
 			}
 			// if pokemon left
 			// getting the switch
-			
+
 			cont = false;
 
 		}
@@ -291,7 +314,7 @@ public class CPUFight extends JFrame implements ActionListener {
 			// if pokemon left
 
 			// getting the switch
-			s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null);
+			s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null, fight);
 			s.setVisible(true);
 			dispose();
 			cont = false;
@@ -317,9 +340,9 @@ public class CPUFight extends JFrame implements ActionListener {
 			}
 			if (otherPk.HP <= 0) {
 				JOptionPane.showMessageDialog(null, myPk.name + " fainted!\nReplacing...");
-				pokemon next = b.switchTo(otherPk,myPk);
+				pokemon next = b.switchTo(otherPk, myPk);
 				JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-				CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
+				CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
 				f.setVisible(true);
 			}
 		} else {
@@ -339,18 +362,18 @@ public class CPUFight extends JFrame implements ActionListener {
 				}
 				// Pokemon
 				if (e.getSource() == pkmnButton2) {
-					pokemon p = b.switchTo(otherPk,myPk);
+					pokemon p = b.switchTo(otherPk, myPk);
 					if (myTeam.alive() == 1) {
-						s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, false, 0, otherPk);
+						s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, false, 0, otherPk, fight);
 						s.setVisible(true);
 						dispose();
 					} else if (p != null) {
-						s = new CPUSwitch(myTeam, myPk, CPUTeam, p, false, 0, otherPk);
+						s = new CPUSwitch(myTeam, myPk, CPUTeam, p, false, 0, otherPk, fight);
 						s.setVisible(true);
 						dispose();
 					} else {
 						int x = b.moveToUse(otherPk, myPk);
-						s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, false, x, otherPk);
+						s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, false, x, otherPk, fight);
 						s.setVisible(true);
 						dispose();
 					}
@@ -364,9 +387,9 @@ public class CPUFight extends JFrame implements ActionListener {
 				if (e.getSource() == runButton4) {
 					JOptionPane.showMessageDialog(null, "Can't do that!");
 				}
-				
+
 			} else {
-				if(e.getSource()==backButton) {
+				if (e.getSource() == backButton) {
 					mainScreen = true;
 					fightButton1.setText("Fight");
 					pkmnButton2.setText("Pokemon");
@@ -376,15 +399,15 @@ public class CPUFight extends JFrame implements ActionListener {
 					label.setBounds(350, 650, 400, 100);
 					backButton.setEnabled(false);
 				}
-				
+
 				// First move
 				if (e.getSource() == fightButton1) {
 					firstLabel.setText("");
 					secondLabel.setText("");
-					pokemon p = b.switchTo(otherPk,myPk);
+					pokemon p = b.switchTo(otherPk, myPk);
 					if (p != null) {
 						JOptionPane.showMessageDialog(null, "The computer switched to " + p.name + " !");
-						CPUFight h = new CPUFight(myPk, p, myTeam, CPUTeam, 1);
+						CPUFight h = new CPUFight(myPk, p, myTeam, CPUTeam, 1, fight);
 						h.setVisible(true);
 						dispose();
 					} else {
@@ -399,14 +422,35 @@ public class CPUFight extends JFrame implements ActionListener {
 								// if no more pokemon left
 								if (CPUTeam.alive() == 0) {
 									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
-									System.exit(0);
+									if (fight < 4) {
+										if (fight == 1) {
+											JOptionPane.showMessageDialog(null, "On to fight 2!");
+											Swap s = new Swap(myTeam, CPUTeam, fight);
+											s.setVisible(true);
+											dispose();
+										} else if (fight == 2) {
+											JOptionPane.showMessageDialog(null, "On to fight 3!");
+											Swap s = new Swap(myTeam, CPUTeam, fight);
+											s.setVisible(true);
+											dispose();
+										} else {
+											JOptionPane.showMessageDialog(null, "On to fight 4!");
+											Swap s = new Swap(myTeam, CPUTeam, fight);
+											s.setVisible(true);
+											dispose();
+										}
+									} else if (fight == 4) {
+										JOptionPane.showMessageDialog(null, "You've cleared the game!");
+										System.exit(0);
+									}
+
 								}
 								// if pokemon left
 								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
 								// getting the switch
-								pokemon next = b.switchTo(otherPk,myPk);
+								pokemon next = b.switchTo(otherPk, myPk);
 								JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
+								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
 								f.setVisible(true);
 								dispose();
 								cont = false;
@@ -436,7 +480,7 @@ public class CPUFight extends JFrame implements ActionListener {
 									JOptionPane.showMessageDialog(null,
 											myPk.name + " fainted!\nWhich pokemon will you replace it with?");
 									// getting the switch
-									s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null);
+									s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null, fight);
 									s.setVisible(true);
 									dispose();
 									cont = false;
@@ -469,7 +513,7 @@ public class CPUFight extends JFrame implements ActionListener {
 								JOptionPane.showMessageDialog(null,
 										myPk.name + " fainted!\nWhich pokemon will you replace it with?");
 								// getting the switch
-								s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null);
+								s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null, fight);
 								s.setVisible(true);
 								dispose();
 								cont = false;
@@ -485,18 +529,40 @@ public class CPUFight extends JFrame implements ActionListener {
 									// if no more pokemon left
 									if (CPUTeam.alive() == 0) {
 										JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
-										System.exit(0);
-									}
-									// if pokemon left
-									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
-									// getting the switch
-									pokemon next = b.switchTo(otherPk,myPk);
-									JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
-									f.setVisible(true);
-									dispose();
-									cont = false;
+										if (fight < 4) {
+											if (fight == 1) {
+												JOptionPane.showMessageDialog(null, "On to fight 2!");
+												Swap s = new Swap(myTeam, CPUTeam, fight);
+												s.setVisible(true);
+												dispose();
+											} else if (fight == 2) {
+												JOptionPane.showMessageDialog(null, "On to fight 3!");
+												Swap s = new Swap(myTeam, CPUTeam, fight);
+												s.setVisible(true);
+												dispose();
+											} else {
+												JOptionPane.showMessageDialog(null, "On to fight 4!");
+												Swap s = new Swap(myTeam, CPUTeam, fight);
+												s.setVisible(true);
+												dispose();
+											}
+										} else if (fight == 4) {
+											JOptionPane.showMessageDialog(null, "You've cleared the game!");
+											System.exit(0);
+										}
 
+									} else {
+										// if pokemon left
+										JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
+										// getting the switch
+										pokemon next = b.switchTo(otherPk, myPk);
+										JOptionPane.showMessageDialog(null,
+												"The computer sent out " + next.name + " !");
+										CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
+										f.setVisible(true);
+										dispose();
+										cont = false;
+									}
 								}
 								otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
 								topHP.setValue(otherPk.HP);
@@ -516,10 +582,10 @@ public class CPUFight extends JFrame implements ActionListener {
 				} else if (e.getSource() == pkmnButton2) {
 					firstLabel.setText("");
 					secondLabel.setText("");
-					pokemon p = b.switchTo(otherPk,myPk);
+					pokemon p = b.switchTo(otherPk, myPk);
 					if (p != null) {
 						JOptionPane.showMessageDialog(null, "The computer switched to " + p.name + " !");
-						CPUFight h = new CPUFight(myPk, p, myTeam, CPUTeam, 2);
+						CPUFight h = new CPUFight(myPk, p, myTeam, CPUTeam, 2, fight);
 						h.setVisible(true);
 						dispose();
 					} else {
@@ -535,14 +601,35 @@ public class CPUFight extends JFrame implements ActionListener {
 								// if no more pokemon left
 								if (CPUTeam.alive() == 0) {
 									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
-									System.exit(0);
+									if (fight < 4) {
+										if (fight == 1) {
+											JOptionPane.showMessageDialog(null, "On to fight 2!");
+											Swap s = new Swap(myTeam, CPUTeam, fight);
+											s.setVisible(true);
+											dispose();
+										} else if (fight == 2) {
+											JOptionPane.showMessageDialog(null, "On to fight 3!");
+											Swap s = new Swap(myTeam, CPUTeam, fight);
+											s.setVisible(true);
+											dispose();
+										} else {
+											JOptionPane.showMessageDialog(null, "On to fight 4!");
+											Swap s = new Swap(myTeam, CPUTeam, fight);
+											s.setVisible(true);
+											dispose();
+										}
+									} else if (fight == 4) {
+										JOptionPane.showMessageDialog(null, "You've cleared the game!");
+										System.exit(0);
+									}
+
 								}
 								// if pokemon left
 								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
 								// getting the switch
-								pokemon next = b.switchTo(otherPk,myPk);
+								pokemon next = b.switchTo(otherPk, myPk);
 								JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
+								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
 								f.setVisible(true);
 								dispose();
 								cont = false;
@@ -574,7 +661,7 @@ public class CPUFight extends JFrame implements ActionListener {
 									JOptionPane.showMessageDialog(null,
 											myPk.name + " fainted!\nWhich pokemon will you replace it with?");
 									// getting the switch
-									s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null);
+									s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null, fight);
 									s.setVisible(true);
 									dispose();
 									cont = false;
@@ -609,7 +696,7 @@ public class CPUFight extends JFrame implements ActionListener {
 								JOptionPane.showMessageDialog(null,
 										myPk.name + " fainted!\nWhich pokemon will you replace it with?");
 								// getting the switch
-								s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null);
+								s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null, fight);
 								s.setVisible(true);
 								dispose();
 								cont = false;
@@ -624,14 +711,35 @@ public class CPUFight extends JFrame implements ActionListener {
 									// if no more pokemon left
 									if (CPUTeam.alive() == 0) {
 										JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
-										System.exit(0);
+										if (fight < 4) {
+											if (fight == 1) {
+												JOptionPane.showMessageDialog(null, "On to fight 2!");
+												Swap s = new Swap(myTeam, CPUTeam, fight);
+												s.setVisible(true);
+												dispose();
+											} else if (fight == 2) {
+												JOptionPane.showMessageDialog(null, "On to fight 3!");
+												Swap s = new Swap(myTeam, CPUTeam, fight);
+												s.setVisible(true);
+												dispose();
+											} else {
+												JOptionPane.showMessageDialog(null, "On to fight 4!");
+												Swap s = new Swap(myTeam, CPUTeam, fight);
+												s.setVisible(true);
+												dispose();
+											}
+										} else if (fight == 4) {
+											JOptionPane.showMessageDialog(null, "You've cleared the game!");
+											System.exit(0);
+										}
+
 									}
 									// if pokemon left
 									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
 									// getting the switch
-									pokemon next = b.switchTo(otherPk,myPk);
+									pokemon next = b.switchTo(otherPk, myPk);
 									JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
+									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
 									f.setVisible(true);
 									dispose();
 									cont = false;
@@ -655,10 +763,10 @@ public class CPUFight extends JFrame implements ActionListener {
 				if (e.getSource() == bagButton3) {
 					firstLabel.setText("");
 					secondLabel.setText("");
-					pokemon p = b.switchTo(otherPk,myPk);
+					pokemon p = b.switchTo(otherPk, myPk);
 					if (p != null) {
 						JOptionPane.showMessageDialog(null, "The computer switched to " + p.name + " !");
-						CPUFight h = new CPUFight(myPk, p, myTeam, CPUTeam, 3);
+						CPUFight h = new CPUFight(myPk, p, myTeam, CPUTeam, 3, fight);
 						h.setVisible(true);
 						dispose();
 					} else {
@@ -673,14 +781,35 @@ public class CPUFight extends JFrame implements ActionListener {
 								// if no more pokemon left
 								if (CPUTeam.alive() == 0) {
 									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
-									System.exit(0);
+									if (fight < 4) {
+										if (fight == 1) {
+											JOptionPane.showMessageDialog(null, "On to fight 2!");
+											Swap s = new Swap(myTeam, CPUTeam, fight);
+											s.setVisible(true);
+											dispose();
+										} else if (fight == 2) {
+											JOptionPane.showMessageDialog(null, "On to fight 3!");
+											Swap s = new Swap(myTeam, CPUTeam, fight);
+											s.setVisible(true);
+											dispose();
+										} else {
+											JOptionPane.showMessageDialog(null, "On to fight 4!");
+											Swap s = new Swap(myTeam, CPUTeam, fight);
+											s.setVisible(true);
+											dispose();
+										}
+									} else if (fight == 4) {
+										JOptionPane.showMessageDialog(null, "You've cleared the game!");
+										System.exit(0);
+									}
+
 								}
 								// if pokemon left
 								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
 								// getting the switch
-								pokemon next = b.switchTo(otherPk,myPk);
+								pokemon next = b.switchTo(otherPk, myPk);
 								JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
+								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
 								f.setVisible(true);
 								dispose();
 								cont = false;
@@ -712,7 +841,7 @@ public class CPUFight extends JFrame implements ActionListener {
 									JOptionPane.showMessageDialog(null,
 											myPk.name + " fainted!\nWhich pokemon will you replace it with?");
 									// getting the switch
-									s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null);
+									s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null, fight);
 									s.setVisible(true);
 									dispose();
 									cont = false;
@@ -747,7 +876,7 @@ public class CPUFight extends JFrame implements ActionListener {
 								JOptionPane.showMessageDialog(null,
 										myPk.name + " fainted!\nWhich pokemon will you replace it with?");
 								// getting the switch
-								s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null);
+								s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null, fight);
 								s.setVisible(true);
 								dispose();
 								cont = false;
@@ -762,14 +891,35 @@ public class CPUFight extends JFrame implements ActionListener {
 									// if no more pokemon left
 									if (CPUTeam.alive() == 0) {
 										JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
-										System.exit(0);
+										if (fight < 4) {
+											if (fight == 1) {
+												JOptionPane.showMessageDialog(null, "On to fight 2!");
+												Swap s = new Swap(myTeam, CPUTeam, fight);
+												s.setVisible(true);
+												dispose();
+											} else if (fight == 2) {
+												JOptionPane.showMessageDialog(null, "On to fight 3!");
+												Swap s = new Swap(myTeam, CPUTeam, fight);
+												s.setVisible(true);
+												dispose();
+											} else {
+												JOptionPane.showMessageDialog(null, "On to fight 4!");
+												Swap s = new Swap(myTeam, CPUTeam, fight);
+												s.setVisible(true);
+												dispose();
+											}
+										} else if (fight == 4) {
+											JOptionPane.showMessageDialog(null, "You've cleared the game!");
+											System.exit(0);
+										}
+
 									}
 									// if pokemon left
 									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
 									// getting the switch
-									pokemon next = b.switchTo(otherPk,myPk);
+									pokemon next = b.switchTo(otherPk, myPk);
 									JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
+									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
 									f.setVisible(true);
 									dispose();
 									cont = false;
@@ -794,10 +944,10 @@ public class CPUFight extends JFrame implements ActionListener {
 				if (e.getSource() == runButton4) {
 					firstLabel.setText("");
 					secondLabel.setText("");
-					pokemon p = b.switchTo(otherPk,myPk);
+					pokemon p = b.switchTo(otherPk, myPk);
 					if (p != null) {
 						JOptionPane.showMessageDialog(null, "The computer switched to " + p.name + " !");
-						CPUFight h = new CPUFight(myPk, p, myTeam, CPUTeam, 4);
+						CPUFight h = new CPUFight(myPk, p, myTeam, CPUTeam, 4, fight);
 						h.setVisible(true);
 						dispose();
 					} else {
@@ -812,14 +962,35 @@ public class CPUFight extends JFrame implements ActionListener {
 								// if no more pokemon left
 								if (CPUTeam.alive() == 0) {
 									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
-									System.exit(0);
+									if (fight < 4) {
+										if (fight == 1) {
+											JOptionPane.showMessageDialog(null, "On to fight 2!");
+											Swap s = new Swap(myTeam, CPUTeam, fight);
+											s.setVisible(true);
+											dispose();
+										} else if (fight == 2) {
+											JOptionPane.showMessageDialog(null, "On to fight 3!");
+											Swap s = new Swap(myTeam, CPUTeam, fight);
+											s.setVisible(true);
+											dispose();
+										} else {
+											JOptionPane.showMessageDialog(null, "On to fight 4!");
+											Swap s = new Swap(myTeam, CPUTeam, fight);
+											s.setVisible(true);
+											dispose();
+										}
+									} else if (fight == 4) {
+										JOptionPane.showMessageDialog(null, "You've cleared the game!");
+										System.exit(0);
+									}
+
 								}
 								// if pokemon left
 								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
 								// getting the switch
-								pokemon next = b.switchTo(otherPk,myPk);
+								pokemon next = b.switchTo(otherPk, myPk);
 								JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
+								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
 								f.setVisible(true);
 								dispose();
 								cont = false;
@@ -851,7 +1022,7 @@ public class CPUFight extends JFrame implements ActionListener {
 									JOptionPane.showMessageDialog(null,
 											myPk.name + " fainted!\nWhich pokemon will you replace it with?");
 									// getting the switch
-									s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null);
+									s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null, fight);
 									s.setVisible(true);
 									dispose();
 									cont = false;
@@ -886,7 +1057,7 @@ public class CPUFight extends JFrame implements ActionListener {
 								JOptionPane.showMessageDialog(null,
 										myPk.name + " fainted!\nWhich pokemon will you replace it with?");
 								// getting the switch
-								s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null);
+								s = new CPUSwitch(myTeam, myPk, CPUTeam, otherPk, true, 0, null, fight);
 								s.setVisible(true);
 								dispose();
 								cont = false;
@@ -901,14 +1072,35 @@ public class CPUFight extends JFrame implements ActionListener {
 									// if no more pokemon left
 									if (CPUTeam.alive() == 0) {
 										JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
-										System.exit(0);
+										if (fight < 4) {
+											if (fight == 1) {
+												JOptionPane.showMessageDialog(null, "On to fight 2!");
+												Swap s = new Swap(myTeam, CPUTeam, fight);
+												s.setVisible(true);
+												dispose();
+											} else if (fight == 2) {
+												JOptionPane.showMessageDialog(null, "On to fight 3!");
+												Swap s = new Swap(myTeam, CPUTeam, fight);
+												s.setVisible(true);
+												dispose();
+											} else {
+												JOptionPane.showMessageDialog(null, "On to fight 4!");
+												Swap s = new Swap(myTeam, CPUTeam, fight);
+												s.setVisible(true);
+												dispose();
+											}
+										} else if (fight == 4) {
+											JOptionPane.showMessageDialog(null, "You've cleared the game!");
+											System.exit(0);
+										}
+
 									}
 									// if pokemon left
 									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
 									// getting the switch
-									pokemon next = b.switchTo(otherPk,myPk);
+									pokemon next = b.switchTo(otherPk, myPk);
 									JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0);
+									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
 									f.setVisible(true);
 									dispose();
 									cont = false;
