@@ -80,6 +80,9 @@ public class pokemon {
 	public String move4(pokemon p) {
 		return "";
 	}
+	public void reset() {
+		
+	}
 	
 	
 

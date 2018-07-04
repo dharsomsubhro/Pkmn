@@ -36,7 +36,14 @@ public class Golem extends pokemon {
 	public String move4(pokemon p) {
 		return m.magnitude(this,p);
 	}
-
+	public void reset() {
+		this.HP=270;
+		this.attack=120;
+		this.defense=130;
+		this.speed=45;
+		this.sAttack=55;
+		this.sDefense=65;
+	}
 	
 
 }

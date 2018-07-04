@@ -37,5 +37,13 @@ public class Houndoom extends pokemon {
 	public String move4(pokemon p) {
 		return m.fireBlast(this,p);
 	}
+	public void reset() {
+		this.HP=260;
+		this.attack=90;
+		this.defense=50;
+		this.speed=95;
+		this.sAttack=110;
+		this.sDefense=80;
+	}
 
 }

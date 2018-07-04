@@ -36,5 +36,15 @@ public class Camerupt extends pokemon {
 	public String move4(pokemon p) {
 		return m.fireBlast(this,p);
 	}
+	public void reset() {
+		this.HP=250;
+		this.attack=100;
+		this.defense=70;
+		this.speed=40;
+		this.sAttack=105;
+		this.sDefense=75;
+		
+		
+	}
 
 }

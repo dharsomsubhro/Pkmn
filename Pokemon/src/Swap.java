@@ -131,6 +131,7 @@ public class Swap extends JFrame implements ActionListener {
 
 		add(whole);
 		add(bac);
+		JOptionPane.showMessageDialog(null,"Do you want to swap for any pokemon?");
 
 	}
 
@@ -243,7 +244,10 @@ public class Swap extends JFrame implements ActionListener {
 				b.setVisible(true);
 				dispose();
 			} else if (e.getSource() == readyButton) {
-				team1.swap(s2, s1);
+				team1.swap(s1, s2);
+				team1.pkmn[0].reset();
+				team1.pkmn[1].reset();
+				team1.pkmn[2].reset();
 				CPUFight b = new CPUFight(team1.pkmn[0], team2.pkmn[0], team1, team2, 0, fight + 1);
 				b.setVisible(true);
 				dispose();

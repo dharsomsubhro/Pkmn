@@ -37,5 +37,13 @@ public class Walrein extends pokemon {
 	public String move4(pokemon p) {
 		return m.tWave(this,p);
 	}
+	public void reset() {
+		this.HP=330;
+		this.attack=80;
+		this.defense=80;
+		this.speed=65;
+		this.sAttack=95;
+		this.sDefense=90;
+	}
 
 }

@@ -45,5 +45,13 @@ public class Lucario extends pokemon {
 		s+=m.flashCannon(this,p);
 		return s;
 	}
+	public void reset() {
+		this.HP=250;
+		this.speed=90;
+		this.attack=110;
+		this.defense=70;
+		this.sAttack=115;
+		this.sDefense=70;
+	}
 
 }
