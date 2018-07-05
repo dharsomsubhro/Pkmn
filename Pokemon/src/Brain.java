@@ -148,7 +148,7 @@ public class Brain {
 				if (effective == 0.25) {
 					p1rating += 2;
 				}
-				
+
 			}
 		}
 		/* Calculating p2rating */
@@ -279,7 +279,7 @@ public class Brain {
 				if (effective == 0.25) {
 					p2rating += 2;
 				}
-				
+
 			}
 		}
 		/* Calculating p3rating */
@@ -410,69 +410,60 @@ public class Brain {
 				if (effective == 0.25) {
 					p3rating += 2;
 				}
-				
+
 			}
 		}
-		pokemon x=null;
-		int p=Math.max(Math.max(p1rating, p2rating), p3rating);
-		int first=0;
-		int second=0;
-		int third=0;
-		if(p==p1rating) {
-			first=0;
-			p=Math.max(p2rating, p3rating);
-			if(p==p2rating) {
-				second=1;
-				third=2;
+		pokemon x = null;
+		int p = Math.max(Math.max(p1rating, p2rating), p3rating);
+		int first = 0;
+		int second = 0;
+		int third = 0;
+		if (p == p1rating) {
+			first = 0;
+			p = Math.max(p2rating, p3rating);
+			if (p == p2rating) {
+				second = 1;
+				third = 2;
+			} else {
+				second = 2;
+				third = 1;
 			}
-			else {
-				second=2;
-				third=1;
+		} else if (p == p2rating) {
+			first = 1;
+			p = Math.max(p1rating, p3rating);
+			if (p == p1rating) {
+				second = 0;
+				third = 2;
+			} else {
+				second = 2;
+				third = 0;
 			}
-		}
-		else if(p==p2rating) {
-			first=1;
-			p=Math.max(p1rating, p3rating);
-			if(p==p1rating) {
-				second=0;
-				third=2;
-			}
-			else {
-				second=2;
-				third=0;
-			}
-		}
-		else {
-			first=2;
-			p=Math.max(p1rating, p2rating);
-			if(p==p2rating) {
-				second=1;
-				third=0;
-			}
-			else {
-				second=0;
-				third=1;
+		} else {
+			first = 2;
+			p = Math.max(p1rating, p2rating);
+			if (p == p2rating) {
+				second = 1;
+				third = 0;
+			} else {
+				second = 0;
+				third = 1;
 			}
 		}
-		if(CPUTeam.pkmn[first].HP<=0) {
-			if(CPUTeam.pkmn[second].HP<=0) {
-				x=CPUTeam.pkmn[third];
+		if (CPUTeam.pkmn[first].HP <= 0) {
+			if (CPUTeam.pkmn[second].HP <= 0) {
+				x = CPUTeam.pkmn[third];
+			} else {
+				x = CPUTeam.pkmn[second];
 			}
-			else {
-				x=CPUTeam.pkmn[second];
-			}
+		} else {
+			x = CPUTeam.pkmn[first];
 		}
-		else {
-			x=CPUTeam.pkmn[first];
-		}
-		if(x==cp) {
+		if (x == cp) {
 			return null;
 		}
 		return x;
-		
-	}
 
-	
+	}
 
 	public int moveToUse(pokemon cp, pokemon mp) {
 		int m1rating = 0;
@@ -488,7 +479,10 @@ public class Brain {
 		}
 
 		// Power rating
-		if (cp.m1.power > 0 && cp.m1.power <= 50) {
+		if (cp.m1.power == 0) {
+			m1rating--;
+		}
+		else if (cp.m1.power > 0 && cp.m1.power <= 50) {
 			m1rating++;
 		} else if (cp.m1.power > 50 && cp.m1.power < 100) {
 			m1rating += 2;
@@ -533,7 +527,10 @@ public class Brain {
 		}
 
 		// Power rating
-		if (cp.m2.power > 0 && cp.m2.power <= 50) {
+		if (cp.m2.power == 0) {
+			m2rating--;
+		}
+		else if (cp.m2.power > 0 && cp.m2.power <= 50) {
 			m2rating++;
 		} else if (cp.m2.power > 50 && cp.m2.power < 100) {
 			m2rating += 2;
@@ -577,7 +574,10 @@ public class Brain {
 		}
 
 		// Power rating
-		if (cp.m3.power > 0 && cp.m3.power <= 50) {
+		if (cp.m3.power == 0) {
+			m3rating--;
+		}
+		else if (cp.m3.power > 0 && cp.m3.power <= 50) {
 			m3rating++;
 		} else if (cp.m3.power > 50 && cp.m3.power < 100) {
 			m3rating += 2;
@@ -622,7 +622,9 @@ public class Brain {
 		}
 
 		// Power rating
-		if (cp.m4.power > 0 && cp.m4.power <= 50) {
+		if (cp.m4.power == 0) {
+			m4rating--;
+		} else if (cp.m4.power > 0 && cp.m4.power <= 50) {
 			m4rating++;
 		} else if (cp.m4.power > 50 && cp.m4.power < 100) {
 			m4rating += 2;

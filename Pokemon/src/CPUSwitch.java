@@ -29,6 +29,12 @@ public class CPUSwitch extends JFrame implements ActionListener {
 	Image hou = null;
 	Image cam = null;
 	Image gol = null;
+	Image cra = null;
+	Image el = null;
+	Image esp = null;
+	Image ge = null;
+	Image br = null;
+	Image ma = null;
 
 	Team team1;
 	Team team2;
@@ -49,6 +55,12 @@ public class CPUSwitch extends JFrame implements ActionListener {
 			wal = ImageIO.read(getClass().getResource("/icons/walrein.png"));
 			cam = ImageIO.read(getClass().getResource("/icons/Camerupt.png"));
 			hou = ImageIO.read(getClass().getResource("/icons/250px-229Houndoom.png"));
+			cra = ImageIO.read(getClass().getResource("/icons/250px-346Cradily.png"));
+			br = ImageIO.read(getClass().getResource("/icons/250px-286Breloom.png"));
+			el = ImageIO.read(getClass().getResource("/icons/250px-466Electivire.png"));
+			esp = ImageIO.read(getClass().getResource("/icons/250px-196Espeon.png"));
+			ma = ImageIO.read(getClass().getResource("/icons/250px-467Magmortar.png"));
+			ge = ImageIO.read(getClass().getResource("/icons/250px-094Gengar.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,133 +89,13 @@ public class CPUSwitch extends JFrame implements ActionListener {
 		back.addActionListener(this);
 		whole = new JPanel(new GridLayout(3, 2));
 		
-		if (t1.pkmn[0] != null) {
-			p1.setText(t1.pkmn[0].name);
-			if (p1.getText().compareTo("Lucario") == 0) {
-				p1.setIcon(new ImageIcon(luc));
-			}
-			if (p1.getText().compareTo("Walrein") == 0) {
-				p1.setIcon(new ImageIcon(wal));
-			}
-			if (p1.getText().compareTo("Camerupt") == 0) {
-				p1.setIcon(new ImageIcon(cam));
-			}
-			if (p1.getText().compareTo("Houndoom") == 0) {
-				p1.setIcon(new ImageIcon(hou));
-			}
-			if (p1.getText().compareTo("Golem") == 0) {
-				p1.setIcon(new ImageIcon(gol));
-			}
-			if (p1.getText().compareTo("Lapras") == 0) {
-				p1.setIcon(new ImageIcon(lap));
-			}
-
-		}
-		if (t1.pkmn[1] != null) {
-			p2.setText(t1.pkmn[1].name);
-			if (p2.getText().compareTo("Lucario") == 0) {
-				p2.setIcon(new ImageIcon(luc));
-			}
-			if (p2.getText().compareTo("Walrein") == 0) {
-				p2.setIcon(new ImageIcon(wal));
-			}
-			if (p2.getText().compareTo("Camerupt") == 0) {
-				p2.setIcon(new ImageIcon(cam));
-			}
-			if (p2.getText().compareTo("Houndoom") == 0) {
-				p2.setIcon(new ImageIcon(hou));
-			}
-			if (p2.getText().compareTo("Golem") == 0) {
-				p2.setIcon(new ImageIcon(gol));
-			}
-			if (p2.getText().compareTo("Lapras") == 0) {
-				p2.setIcon(new ImageIcon(lap));
-			}
-		}
-		if (t1.pkmn[2] != null) {
-			p3.setText(t1.pkmn[2].name);
-			if (p3.getText().compareTo("Lucario") == 0) {
-				p3.setIcon(new ImageIcon(luc));
-			}
-			if (p3.getText().compareTo("Walrein") == 0) {
-				p3.setIcon(new ImageIcon(wal));
-			}
-			if (p3.getText().compareTo("Camerupt") == 0) {
-				p3.setIcon(new ImageIcon(cam));
-			}
-			if (p3.getText().compareTo("Houndoom") == 0) {
-				p3.setIcon(new ImageIcon(hou));
-			}
-			if (p3.getText().compareTo("Golem") == 0) {
-				p3.setIcon(new ImageIcon(gol));
-			}
-			if (p3.getText().compareTo("Lapras") == 0) {
-				p3.setIcon(new ImageIcon(lap));
-			}
-		}
-		if (t1.pkmn[3] != null) {
-			p4.setText(t1.pkmn[3].name);
-			if (p4.getText().compareTo("Lucario") == 0) {
-				p4.setIcon(new ImageIcon(luc));
-			}
-			if (p4.getText().compareTo("Walrein") == 0) {
-				p4.setIcon(new ImageIcon(wal));
-			}
-			if (p4.getText().compareTo("Camerupt") == 0) {
-				p4.setIcon(new ImageIcon(cam));
-			}
-			if (p4.getText().compareTo("Houndoom") == 0) {
-				p4.setIcon(new ImageIcon(hou));
-			}
-			if (p4.getText().compareTo("Golem") == 0) {
-				p4.setIcon(new ImageIcon(gol));
-			}
-			if (p4.getText().compareTo("Lapras") == 0) {
-				p4.setIcon(new ImageIcon(lap));
-			}
-		}
-		if (t1.pkmn[4] != null) {
-			p5.setText(t1.pkmn[4].name);
-			if (p5.getText().compareTo("Lucario") == 0) {
-				p5.setIcon(new ImageIcon(luc));
-			}
-			if (p5.getText().compareTo("Walrein") == 0) {
-				p5.setIcon(new ImageIcon(wal));
-			}
-			if (p5.getText().compareTo("Camerupt") == 0) {
-				p5.setIcon(new ImageIcon(cam));
-			}
-			if (p5.getText().compareTo("Houndoom") == 0) {
-				p5.setIcon(new ImageIcon(hou));
-			}
-			if (p5.getText().compareTo("Golem") == 0) {
-				p5.setIcon(new ImageIcon(gol));
-			}
-			if (p5.getText().compareTo("Lapras") == 0) {
-				p5.setIcon(new ImageIcon(lap));
-			}
-		}
-		if (t1.pkmn[5] != null) {
-			p6.setText(t1.pkmn[5].name);
-			if (p6.getText().compareTo("Lucario") == 0) {
-				p6.setIcon(new ImageIcon(luc));
-			}
-			if (p6.getText().compareTo("Walrein") == 0) {
-				p6.setIcon(new ImageIcon(wal));
-			}
-			if (p6.getText().compareTo("Camerupt") == 0) {
-				p6.setIcon(new ImageIcon(cam));
-			}
-			if (p6.getText().compareTo("Houndoom") == 0) {
-				p6.setIcon(new ImageIcon(hou));
-			}
-			if (p6.getText().compareTo("Golem") == 0) {
-				p6.setIcon(new ImageIcon(gol));
-			}
-			if (p6.getText().compareTo("Lapras") == 0) {
-				p6.setIcon(new ImageIcon(lap));
-			}
-		}
+		p1.setText(t1.pkmn[0].name);
+		setIcon(p1);
+		p2.setText(t1.pkmn[1].name);
+		setIcon(p2);
+		p3.setText(t1.pkmn[2].name);
+		setIcon(p3);
+		
 		whole.add(p1);
 		whole.add(p2);
 		whole.add(p3);
@@ -239,7 +131,44 @@ public class CPUSwitch extends JFrame implements ActionListener {
 		}
 
 	}
-
+	public void setIcon(JButton b) {
+		if (b.getText().compareTo("Lucario") == 0) {
+			b.setIcon(new ImageIcon(luc));
+		}
+		if (b.getText().compareTo("Walrein") == 0) {
+			b.setIcon(new ImageIcon(wal));
+		}
+		if (b.getText().compareTo("Camerupt") == 0) {
+			b.setIcon(new ImageIcon(cam));
+		}
+		if (b.getText().compareTo("Houndoom") == 0) {
+			b.setIcon(new ImageIcon(hou));
+		}
+		if (b.getText().compareTo("Golem") == 0) {
+			b.setIcon(new ImageIcon(gol));
+		}
+		if (b.getText().compareTo("Lapras") == 0) {
+			b.setIcon(new ImageIcon(lap));
+		}
+		if (b.getText().compareTo("Gengar") == 0) {
+			b.setIcon(new ImageIcon(ge));
+		}
+		if (b.getText().compareTo("Magmortar") == 0) {
+			b.setIcon(new ImageIcon(ma));
+		}
+		if (b.getText().compareTo("Electivire") == 0) {
+			b.setIcon(new ImageIcon(el));
+		}
+		if (b.getText().compareTo("Breloom") == 0) {
+			b.setIcon(new ImageIcon(br));
+		}
+		if (b.getText().compareTo("Cradily") == 0) {
+			b.setIcon(new ImageIcon(cra));
+		}
+		if (b.getText().compareTo("Espeon") == 0) {
+			b.setIcon(new ImageIcon(esp));
+		}
+	}
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == "Back") {
 			CPUFight b = new CPUFight(turn, ba, team1, team2, 0, fight);

@@ -41,6 +41,12 @@ public class CPUFight extends JFrame implements ActionListener {
 	Image hou = null;
 	Image cam = null;
 	Image gol = null;
+	Image cra = null;
+	Image el = null;
+	Image esp = null;
+	Image ge = null;
+	Image br = null;
+	Image ma = null;
 	Image back = null;
 	Image onepk = null;
 	Image twopk = null;
@@ -84,12 +90,18 @@ public class CPUFight extends JFrame implements ActionListener {
 		b = new Brain(te1, te2, p1, p2);
 		y = x;
 		try {
-			luc = ImageIO.read(getClass().getResource("icons/Lucario.png"));
-			lap = ImageIO.read(getClass().getResource("icons/250px-131Lapras.png"));
-			gol = ImageIO.read(getClass().getResource("icons/golem.png"));
-			wal = ImageIO.read(getClass().getResource("icons/walrein.png"));
-			cam = ImageIO.read(getClass().getResource("icons/Camerupt.png"));
-			hou = ImageIO.read(getClass().getResource("icons/250px-229Houndoom.png"));
+			luc = ImageIO.read(getClass().getResource("/icons/Lucario.png"));
+			lap = ImageIO.read(getClass().getResource("/icons/250px-131Lapras.png"));
+			gol = ImageIO.read(getClass().getResource("/icons/golem.png"));
+			wal = ImageIO.read(getClass().getResource("/icons/walrein.png"));
+			cam = ImageIO.read(getClass().getResource("/icons/Camerupt.png"));
+			hou = ImageIO.read(getClass().getResource("/icons/250px-229Houndoom.png"));
+			cra = ImageIO.read(getClass().getResource("/icons/250px-346Cradily.png"));
+			br = ImageIO.read(getClass().getResource("/icons/250px-286Breloom.png"));
+			el = ImageIO.read(getClass().getResource("/icons/250px-466Electivire.png"));
+			esp = ImageIO.read(getClass().getResource("/icons/250px-196Espeon.png"));
+			ma = ImageIO.read(getClass().getResource("/icons/250px-467Magmortar.png"));
+			ge = ImageIO.read(getClass().getResource("/icons/250px-094Gengar.png"));
 			back = ImageIO.read(getClass().getResource("icons/background.jpg"));
 			this.setContentPane(new JLabel(new ImageIcon(back)));
 			onepk = ImageIO.read(getClass().getResource("icons/1.png"));
@@ -118,6 +130,24 @@ public class CPUFight extends JFrame implements ActionListener {
 		if (myPk.name.compareTo("Camerupt") == 0) {
 			turnImage = new ImageIcon(cam);
 		}
+		if (myPk.name.compareTo("Electivire") == 0) {
+			turnImage = new ImageIcon(el);
+		}
+		if (myPk.name.compareTo("Cradily") == 0) {
+			turnImage = new ImageIcon(cra);
+		}
+		if (myPk.name.compareTo("Magmortar") == 0) {
+			turnImage = new ImageIcon(ma);
+		}
+		if (myPk.name.compareTo("Gengar") == 0) {
+			turnImage = new ImageIcon(ge);
+		}
+		if (myPk.name.compareTo("Espeon") == 0) {
+			turnImage = new ImageIcon(esp);
+		}
+		if (myPk.name.compareTo("Breloom") == 0) {
+			turnImage = new ImageIcon(br);
+		}
 
 		if (otherPk.name.compareTo("Lucario") == 0) {
 			otherImage = new ImageIcon(luc);
@@ -136,6 +166,24 @@ public class CPUFight extends JFrame implements ActionListener {
 		}
 		if (otherPk.name.compareTo("Camerupt") == 0) {
 			otherImage = new ImageIcon(cam);
+		}
+		if (otherPk.name.compareTo("Electivire") == 0) {
+			otherImage = new ImageIcon(el);
+		}
+		if (otherPk.name.compareTo("Cradily") == 0) {
+			otherImage = new ImageIcon(cra);
+		}
+		if (otherPk.name.compareTo("Magmortar") == 0) {
+			otherImage = new ImageIcon(ma);
+		}
+		if (otherPk.name.compareTo("Gengar") == 0) {
+			otherImage = new ImageIcon(ge);
+		}
+		if (otherPk.name.compareTo("Espeon") == 0) {
+			otherImage = new ImageIcon(esp);
+		}
+		if (otherPk.name.compareTo("Breloom") == 0) {
+			otherImage = new ImageIcon(br);
 		}
 		// Setting up the GUI
 		this.setLayout(null);
@@ -298,11 +346,17 @@ public class CPUFight extends JFrame implements ActionListener {
 					System.exit(0);
 				}
 
+			}else {
+				// if pokemon left
+				JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
+				// getting the switch
+				pokemon next = b.switchTo(otherPk, myPk);
+				JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
+				CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
+				f.setVisible(true);
+				dispose();
+				cont = false;
 			}
-			// if pokemon left
-			// getting the switch
-
-			cont = false;
 
 		}
 		if (myPk.HP <= 0) {
@@ -446,17 +500,17 @@ public class CPUFight extends JFrame implements ActionListener {
 										System.exit(0);
 									}
 
+								} else {
+									// if pokemon left
+									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
+									// getting the switch
+									pokemon next = b.switchTo(otherPk, myPk);
+									JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
+									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
+									f.setVisible(true);
+									dispose();
+									cont = false;
 								}
-								// if pokemon left
-								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
-								// getting the switch
-								pokemon next = b.switchTo(otherPk, myPk);
-								JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
-								f.setVisible(true);
-								dispose();
-								cont = false;
-
 							} else {
 								otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
 								topHP.setValue(otherPk.HP);
@@ -625,16 +679,17 @@ public class CPUFight extends JFrame implements ActionListener {
 										System.exit(0);
 									}
 
+								} else {
+									// if pokemon left
+									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
+									// getting the switch
+									pokemon next = b.switchTo(otherPk, myPk);
+									JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
+									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
+									f.setVisible(true);
+									dispose();
+									cont = false;
 								}
-								// if pokemon left
-								JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
-								// getting the switch
-								pokemon next = b.switchTo(otherPk, myPk);
-								JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-								CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
-								f.setVisible(true);
-								dispose();
-								cont = false;
 							} else {
 								otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
 								topHP.setValue(otherPk.HP);
@@ -735,16 +790,18 @@ public class CPUFight extends JFrame implements ActionListener {
 											System.exit(0);
 										}
 
+									} else {
+										// if pokemon left
+										JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
+										// getting the switch
+										pokemon next = b.switchTo(otherPk, myPk);
+										JOptionPane.showMessageDialog(null,
+												"The computer sent out " + next.name + " !");
+										CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
+										f.setVisible(true);
+										dispose();
+										cont = false;
 									}
-									// if pokemon left
-									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nReplacing...");
-									// getting the switch
-									pokemon next = b.switchTo(otherPk, myPk);
-									JOptionPane.showMessageDialog(null, "The computer sent out " + next.name + " !");
-									CPUFight f = new CPUFight(myPk, next, myTeam, CPUTeam, 0, fight);
-									f.setVisible(true);
-									dispose();
-									cont = false;
 								}
 								otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
 								topHP.setValue(otherPk.HP);

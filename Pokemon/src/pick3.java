@@ -32,19 +32,14 @@ public class pick3 extends JFrame implements ActionListener {
 	Houndoom han = new Houndoom(95, 260, 90, 50, 110, 80);
 	Camerupt kam = new Camerupt(40, 250, 100, 70, 105, 75);
 
-	File luc = new File("c:\\Users\\dhars\\Desktop\\Icons\\Lucario.png");
-	File wal = new File("c:\\Users\\dhars\\Desktop\\Icons\\walrein.png");
-	File gol = new File("c:\\Users\\dhars\\Desktop\\Icons\\golem.png");
-	File hou = new File("c:\\Users\\dhars\\Desktop\\Icons\\250px-229Houndoom.png");
-	File lap = new File("c:\\Users\\dhars\\Desktop\\Icons\\250px-131Lapras.png");
-	File cam = new File("c:\\Users\\dhars\\Desktop\\Icons\\Camerupt.png");
+	
 
-	Image lucImage = null;
-	Image walImage = null;
-	Image houImage = null;
-	Image golImage = null;
-	Image lapImage = null;
-	Image camImage = null;
+	Image luc = null;
+	Image lap = null;
+	Image wal = null;
+	Image hou = null;
+	Image cam = null;
+	Image gol = null;
 
 	Team team1;
 	Team team2;
@@ -63,12 +58,12 @@ public class pick3 extends JFrame implements ActionListener {
 		y = x;
 
 		try {
-			lucImage = ImageIO.read(luc);
-			walImage = ImageIO.read(wal);
-			houImage = ImageIO.read(hou);
-			golImage = ImageIO.read(gol);
-			lapImage = ImageIO.read(lap);
-			camImage = ImageIO.read(cam);
+			luc = ImageIO.read(getClass().getResource("/icons/Lucario.png"));
+			lap = ImageIO.read(getClass().getResource("/icons/250px-131Lapras.png"));
+			gol = ImageIO.read(getClass().getResource("/icons/golem.png"));
+			wal = ImageIO.read(getClass().getResource("/icons/walrein.png"));
+			cam = ImageIO.read(getClass().getResource("/icons/Camerupt.png"));
+			hou = ImageIO.read(getClass().getResource("/icons/250px-229Houndoom.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -100,17 +95,17 @@ public class pick3 extends JFrame implements ActionListener {
 		whole = new JPanel(new GridLayout(3, 2));
 
 		p1.setText("Lucario");
-		p1.setIcon(new ImageIcon(lucImage));
+		p1.setIcon(new ImageIcon(luc));
 		p2.setText("Walrein");
-		p2.setIcon(new ImageIcon(walImage));
+		p2.setIcon(new ImageIcon(wal));
 		p3.setText("Camerupt");
-		p3.setIcon(new ImageIcon(camImage));
+		p3.setIcon(new ImageIcon(cam));
 		p4.setText("Houndoom");
-		p4.setIcon(new ImageIcon(houImage));
+		p4.setIcon(new ImageIcon(hou));
 		p5.setText("Golem");
-		p5.setIcon(new ImageIcon(golImage));
+		p5.setIcon(new ImageIcon(gol));
 		p6.setText("Lapras");
-		p6.setIcon(new ImageIcon(lapImage));
+		p6.setIcon(new ImageIcon(lap));
 
 		whole.add(p1);
 		whole.add(p2);

@@ -10,19 +10,14 @@ public class Start extends JFrame implements ActionListener{
 	public JButton onePlayer=new JButton("One Player v/s Computer");
 	public JButton twoPlayer=new JButton("Two Player");
 	public JLabel welcome=new JLabel("<html>Welcome. This is a Pokemon Battling Simulator<br> Would you like to play against a friend(2 Player)<br> or against the computer(1 Player)?</html>");
-	Lucario luke = new Lucario(90, 250, 110, 70, 115, 70);
-	Lapras lappy = new Lapras(60, 370, 85, 80, 85, 95);
-	Golem gman = new Golem(45, 270, 120, 130, 55, 65);
-	Walrein wally = new Walrein(65, 330, 80, 90, 95, 90);
-	Houndoom han = new Houndoom(95, 260, 90, 50, 110, 80);
-	Camerupt cam = new Camerupt(40, 250, 100, 70, 105, 75);
+	Cradily crad= new Cradily();
+	Electivire ele=new Electivire();
+	Espeon es=new Espeon();
 	//Creating the teams
 	Team userTeam=new Team(null,null,null,null,null,null,true);
-	Team t1 = new Team(lappy, cam, gman, null, null, null, true);
-	Team t2 = new Team(han, luke, wally, null, null, null, false);
+	Team t1 = new Team(crad, ele, es, null, null, null, true);
 	
 	pokemon p1 = t1.pkmn[0];
-	pokemon p2 = t2.pkmn[0];
 	//Starting the first fight
 	
 	public Start() {

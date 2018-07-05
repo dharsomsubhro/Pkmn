@@ -31,17 +31,30 @@ public class Swap extends JFrame implements ActionListener {
 	Walrein wally = new Walrein(65, 330, 80, 90, 95, 90);
 	Houndoom han = new Houndoom(95, 260, 90, 50, 110, 80);
 	Camerupt kam = new Camerupt(40, 250, 100, 70, 105, 75);
+	Cradily crad = new Cradily();
+	Electivire ele = new Electivire();
+	Espeon es = new Espeon();
+	Gengar gen = new Gengar();
+	Magmortar mag = new Magmortar();
+	Breloom bre = new Breloom();
 
-	Team te1 = new Team(lappy, kam, gman, null, null, null, true);
-	Team te2 = new Team(han, luke, wally, null, null, null, false);
+	Team te1 = new Team(crad, ele, es, null, null, null, true);
+	Team te2 = new Team(gen, bre, mag, null, null, null, false);
 	Team te3 = new Team(null, null, null, null, null, null, true);
 	Team te4 = new Team(null, null, null, null, null, null, true);
+
 	Image luc = null;
 	Image lap = null;
 	Image wal = null;
 	Image hou = null;
 	Image cam = null;
 	Image gol = null;
+	Image cra = null;
+	Image el = null;
+	Image esp = null;
+	Image ge = null;
+	Image br = null;
+	Image ma = null;
 
 	Team team1;
 	Team team2;
@@ -80,6 +93,12 @@ public class Swap extends JFrame implements ActionListener {
 			wal = ImageIO.read(getClass().getResource("/icons/walrein.png"));
 			cam = ImageIO.read(getClass().getResource("/icons/Camerupt.png"));
 			hou = ImageIO.read(getClass().getResource("/icons/250px-229Houndoom.png"));
+			cra = ImageIO.read(getClass().getResource("/icons/250px-346Cradily.png"));
+			br = ImageIO.read(getClass().getResource("/icons/250px-286Breloom.png"));
+			el = ImageIO.read(getClass().getResource("/icons/250px-466Electivire.png"));
+			esp = ImageIO.read(getClass().getResource("/icons/250px-196Espeon.png"));
+			ma = ImageIO.read(getClass().getResource("/icons/250px-467Magmortar.png"));
+			ge = ImageIO.read(getClass().getResource("/icons/250px-094Gengar.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,7 +139,7 @@ public class Swap extends JFrame implements ActionListener {
 		whole.add(p5);
 		whole.add(p6);
 		back.setBounds(290, 0, 200, 50);
-		readyButton.setBounds(490,0, 200, 50);
+		readyButton.setBounds(490, 0, 200, 50);
 		no.setBounds(290, 50, 400, 50);
 
 		JPanel bac = new JPanel(null);
@@ -131,7 +150,7 @@ public class Swap extends JFrame implements ActionListener {
 
 		add(whole);
 		add(bac);
-		JOptionPane.showMessageDialog(null,"Do you want to swap for any pokemon?");
+		JOptionPane.showMessageDialog(null, "Do you want to swap for any pokemon?");
 
 	}
 
@@ -153,6 +172,24 @@ public class Swap extends JFrame implements ActionListener {
 		}
 		if (b.getText().compareTo("Lapras") == 0) {
 			b.setIcon(new ImageIcon(lap));
+		}
+		if (b.getText().compareTo("Gengar") == 0) {
+			b.setIcon(new ImageIcon(ge));
+		}
+		if (b.getText().compareTo("Magmortar") == 0) {
+			b.setIcon(new ImageIcon(ma));
+		}
+		if (b.getText().compareTo("Electivire") == 0) {
+			b.setIcon(new ImageIcon(el));
+		}
+		if (b.getText().compareTo("Breloom") == 0) {
+			b.setIcon(new ImageIcon(br));
+		}
+		if (b.getText().compareTo("Cradily") == 0) {
+			b.setIcon(new ImageIcon(cra));
+		}
+		if (b.getText().compareTo("Espeon") == 0) {
+			b.setIcon(new ImageIcon(esp));
 		}
 	}
 
@@ -265,8 +302,8 @@ public class Swap extends JFrame implements ActionListener {
 				setIcon(p1);
 				setIcon(p2);
 				setIcon(p3);
-				swap=true;
-				s2=null;
+				swap = true;
+				s2 = null;
 			}
 		}
 
