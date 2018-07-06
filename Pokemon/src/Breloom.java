@@ -9,7 +9,7 @@ public class Breloom extends pokemon {
 		super.m4=new Move("Stun Spore", 3, false, 0, false);
 	}
 	public String showMove1() {
-		return m1.name;
+		return this.m1.name;
 	}
 	public String showMove2() {
 		return m2.name;
