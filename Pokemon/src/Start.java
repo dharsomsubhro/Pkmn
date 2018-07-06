@@ -44,20 +44,19 @@ public class Start extends JFrame implements ActionListener{
 			pick3 s=new pick3(userTeam,null,t1,p1,true,0,null);
 			s.setVisible(true);
 			dispose();
-			//CPUStart c=new CPUStart();
-			//c.main(null);
-			//dispose();
 			
 		}
-		//if(e.getSource()==twoPlayer) {
-			//ButtonBattle b=new ButtonBattle();
-			//b.main(null);
-		//}
+		if(e.getSource()==twoPlayer) {
+			ButtonBattle b=new ButtonBattle();
+			b.main(null);
+			dispose();
+		}
 	}
 	
 	public static void main(String[] args) {
 		Start s=new Start();
 		s.setVisible(true);
+		
 	}
 
 }

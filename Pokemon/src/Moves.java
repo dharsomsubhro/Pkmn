@@ -35,6 +35,73 @@ public class Moves {
 		return s;
 
 	}
+	
+	public String dragonClaw(pokemon p1, pokemon p2) {
+		String s = "<html>" + p1.name + " used Dragon Claw!<br>";
+		Random rand = new Random();
+		int z = rand.nextInt(38) + 217;
+		double y;
+		if (!p2.monotype) {
+			y = t.effective(14, p2.type1, p2.type2);
+		} else {
+			y = t.effective(14, p2.type1);
+		}
+		double STAB;
+		if (p1.type1 == 14 || p1.type2 == 14) {
+			STAB = 1.5;
+		} else {
+			STAB = 1;
+		}
+		double x = ((((22 * p1.attack * 80) / p2.defense / 50) + 2) * STAB * y * z) / 255;
+		int damage = (int) x;
+		if (y == 2 || y == 4) {
+			s += "It's super effective!<br>";
+		}
+		if (y == 0.5 || y == 0.25) {
+			s += "It's not very effective...<br>";
+		}
+		if (y == 0) {
+			s += "It didn't have any effect...<br>";
+		}
+		s += "Did " + damage + " damage!</html>";
+		p2.HP -= damage;
+		return s;
+
+	}
+	
+	public String aerialAce(pokemon p1, pokemon p2) {
+		String s = "<html>" + p1.name + " used Aerial Ace!<br>";
+		Random rand = new Random();
+		int z = rand.nextInt(38) + 217;
+		double y;
+		if (!p2.monotype) {
+			y = t.effective(6, p2.type1, p2.type2);
+		} else {
+			y = t.effective(6, p2.type1);
+		}
+		double STAB;
+		if (p1.type1 == 6 || p1.type2 == 6) {
+			STAB = 1.5;
+		} else {
+			STAB = 1;
+		}
+		double x = ((((22 * p1.attack * 60) / p2.defense / 50) + 2) * STAB * y * z) / 255;
+		int damage = (int) x;
+		if (y == 2 || y == 4) {
+			s += "It's super effective!<br>";
+		}
+		if (y == 0.5 || y == 0.25) {
+			s += "It's not very effective...<br>";
+		}
+		if (y == 0) {
+			s += "It didn't have any effect...<br>";
+		}
+		s += "Did " + damage + " damage!</html>";
+		p2.HP -= damage;
+		return s;
+
+	}
+	
 
 	public String earthquake(pokemon p1, pokemon p2) {
 		String s = "<html>" + p1.name + " used Earthquake!<br>";
@@ -142,6 +209,84 @@ public class Moves {
 		return s;
 
 	}
+	
+	public String megahorn(pokemon p1, pokemon p2) {
+		String s = "<html>" + p1.name + " used Megahorn!<br>";
+		Random rand = new Random();
+		int z = rand.nextInt(38) + 217;
+		double y;
+		int k = rand.nextInt(20) + 1;
+		if (k > 17 ) {
+			s += "It Missed!</html>";
+			return s;
+		}
+		if (!p2.monotype) {
+			y = t.effective(11, p2.type1, p2.type2);
+		} else {
+			y = t.effective(11, p2.type1);
+		}
+		double STAB;
+		if (p1.type1 == 11 || p1.type2 == 11) {
+			STAB = 1.5;
+		} else {
+			STAB = 1;
+		}
+		double x = ((((22 * p1.attack * 120) / p2.defense / 50) + 2) * STAB * y * z) / 255;
+		int damage = (int) x;
+		if (y == 2 || y == 4) {
+			s += "It's super effective!<br>";
+		}
+		if (y == 0.5 || y == 0.25) {
+			s += "It's not very effective...<br>";
+		}
+		if (y == 0) {
+			s += "It didn't have any effect...<br>";
+		}
+		s += "Did " + damage + " damage!</html>";
+		p2.HP -= damage;
+		return s;
+
+	}
+	
+	public String fireFang(pokemon p1, pokemon p2) {
+		String s = "<html>" + p1.name + " used Fire Fang!<br>";
+		Random rand = new Random();
+		int z = rand.nextInt(38) + 217;
+		double y;
+		int k = rand.nextInt(20) + 1;
+		if (k == 20 ) {
+			s += "It Missed!</html>";
+			return s;
+		}
+		if (!p2.monotype) {
+			y = t.effective(1, p2.type1, p2.type2);
+		} else {
+			y = t.effective(1, p2.type1);
+		}
+		double STAB;
+		if (p1.type1 == 1 || p1.type2 == 1) {
+			STAB = 1.5;
+		} else {
+			STAB = 1;
+		}
+		double x = ((((22 * p1.attack * 65) / p2.defense / 50) + 2) * STAB * y * z) / 255;
+		int damage = (int) x;
+		if (y == 2 || y == 4) {
+			s += "It's super effective!<br>";
+		}
+		if (y == 0.5 || y == 0.25) {
+			s += "It's not very effective...<br>";
+		}
+		if (y == 0) {
+			s += "It didn't have any effect...<br>";
+		}
+		s += "Did " + damage + " damage!</html>";
+		p2.HP -= damage;
+		return s;
+
+	}
+	
+	
 
 	public String surf(pokemon p1, pokemon p2) {
 		String s = "<html>" + p1.name + " used Surf!<br>";
@@ -174,6 +319,39 @@ public class Moves {
 		p2.HP -= damage;
 		return s;
 	}
+	
+	public String moonblast(pokemon p1, pokemon p2) {
+		String s = "<html>" + p1.name + " used Moonblast!<br>";
+		Random rand = new Random();
+		int z = rand.nextInt(38) + 217;
+		double y;
+		if (!p2.monotype) {
+			y = t.effective(13, p2.type1, p2.type2);
+		} else {
+			y = t.effective(13, p2.type1);
+		}
+		double STAB;
+		if (p1.type1 == 13 || p1.type2 == 13) {
+			STAB = 1.5;
+		} else {
+			STAB = 1;
+		}
+		double x = ((((22 * p1.sAttack * 90) / p2.sDefense / 50) + 2) * STAB * y * z) / 255;
+		int damage = (int) x;
+		if (y == 2 || y == 4) {
+			s += "It's super effective!<br>";
+		}
+		if (y == 0.5 || y == 0.25) {
+			s += "It's not very effective...<br>";
+		}
+		if (y == 0) {
+			s += "It didn't have any effect...<br>";
+		}
+		s += "Did " + damage + " damage!</html>";
+		p2.HP -= damage;
+		return s;
+	}
+	
 
 	public String shadowBall(pokemon p1, pokemon p2) {
 		String s = "<html>" + p1.name + " used Shadow Ball!<br>";
@@ -444,6 +622,7 @@ public class Moves {
 		p2.HP -= damage;
 		return s;
 	}
+	
 
 	public String auraSphere(pokemon p1, pokemon p2) {
 		String s = "<html>" + p1.name + " used Aura Sphere!<br>";

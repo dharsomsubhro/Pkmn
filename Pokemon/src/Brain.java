@@ -481,8 +481,7 @@ public class Brain {
 		// Power rating
 		if (cp.m1.power == 0) {
 			m1rating--;
-		}
-		else if (cp.m1.power > 0 && cp.m1.power <= 50) {
+		} else if (cp.m1.power > 0 && cp.m1.power <= 50) {
 			m1rating++;
 		} else if (cp.m1.power > 50 && cp.m1.power < 100) {
 			m1rating += 2;
@@ -511,6 +510,8 @@ public class Brain {
 				m1rating -= 2;
 			} else if (effective == 0.25) {
 				m1rating -= 3;
+			} else if (effective == 0) {
+				m1rating -= 4;
 			}
 		}
 		if (cp.sAttack > cp.attack && cp.m1.physical == false) {
@@ -529,8 +530,7 @@ public class Brain {
 		// Power rating
 		if (cp.m2.power == 0) {
 			m2rating--;
-		}
-		else if (cp.m2.power > 0 && cp.m2.power <= 50) {
+		} else if (cp.m2.power > 0 && cp.m2.power <= 50) {
 			m2rating++;
 		} else if (cp.m2.power > 50 && cp.m2.power < 100) {
 			m2rating += 2;
@@ -559,6 +559,8 @@ public class Brain {
 				m2rating -= 2;
 			} else if (effective == 0.25) {
 				m2rating -= 3;
+			} else if (effective == 0) {
+				m2rating -= 4;
 			}
 		}
 		if (cp.sAttack > cp.attack && cp.m2.physical == false) {
@@ -576,8 +578,7 @@ public class Brain {
 		// Power rating
 		if (cp.m3.power == 0) {
 			m3rating--;
-		}
-		else if (cp.m3.power > 0 && cp.m3.power <= 50) {
+		} else if (cp.m3.power > 0 && cp.m3.power <= 50) {
 			m3rating++;
 		} else if (cp.m3.power > 50 && cp.m3.power < 100) {
 			m3rating += 2;
@@ -606,6 +607,8 @@ public class Brain {
 				m3rating -= 2;
 			} else if (effective == 0.25) {
 				m3rating -= 3;
+			} else if (effective == 0) {
+				m3rating -= 4;
 			}
 		}
 		if (cp.sAttack > cp.attack && cp.m3.physical == false) {
@@ -642,6 +645,8 @@ public class Brain {
 				m4rating -= 2;
 			} else if (effective == 0.25) {
 				m4rating -= 3;
+			} else if (effective == 0) {
+				m4rating -= 4;
 			}
 		} else {
 			effective = t.effective(cp.m4.type, mp.type1, mp.type2);
@@ -664,14 +669,14 @@ public class Brain {
 
 		// Deciding which move is best
 		int m = Math.max(Math.max(m1rating, m2rating), Math.max(m3rating, m4rating));
-		if (m == m1rating) {
-			return 11;
-		} else if (m == m2rating) {
-			return 12;
+		if (m == m4rating) {
+			return 14;
 		} else if (m == m3rating) {
 			return 13;
+		} else if (m == m2rating) {
+			return 12;
 		} else {
-			return 14;
+			return 11;
 		}
 	}
 

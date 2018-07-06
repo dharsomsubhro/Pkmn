@@ -428,7 +428,7 @@ public class TypeEffective {
 			case 12:
 				return 1;
 			case 13:
-				return 1;
+				return 0.5;
 			case 14:
 				return 1;
 			case 15:
@@ -619,7 +619,7 @@ public class TypeEffective {
 			case 9:
 				return 1;
 			case 10:
-				return 0.5;
+				return 1;
 			case 11:
 				return 1;
 			case 12:

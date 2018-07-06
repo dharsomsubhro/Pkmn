@@ -31,17 +31,24 @@ public class Swap extends JFrame implements ActionListener {
 	Walrein wally = new Walrein(65, 330, 80, 90, 95, 90);
 	Houndoom han = new Houndoom(95, 260, 90, 50, 110, 80);
 	Camerupt kam = new Camerupt(40, 250, 100, 70, 105, 75);
+
 	Cradily crad = new Cradily();
 	Electivire ele = new Electivire();
 	Espeon es = new Espeon();
 	Gengar gen = new Gengar();
 	Magmortar mag = new Magmortar();
 	Breloom bre = new Breloom();
+	Gardevoir gar = new Gardevoir();
+	Dragonite dra = new Dragonite();
+	Flygon fly = new Flygon();
+	Aerodactyl aer = new Aerodactyl();
+	Nidoqueen nid = new Nidoqueen();
+	Heracross her = new Heracross();
 
 	Team te1 = new Team(crad, ele, es, null, null, null, true);
 	Team te2 = new Team(gen, bre, mag, null, null, null, false);
-	Team te3 = new Team(null, null, null, null, null, null, true);
-	Team te4 = new Team(null, null, null, null, null, null, true);
+	Team te3 = new Team(dra, nid, gar, null, null, null, true);
+	Team te4 = new Team(fly, aer, her, null, null, null, true);
 
 	Image luc = null;
 	Image lap = null;
@@ -55,6 +62,12 @@ public class Swap extends JFrame implements ActionListener {
 	Image ge = null;
 	Image br = null;
 	Image ma = null;
+	Image ga = null;
+	Image dr = null;
+	Image fl = null;
+	Image ae = null;
+	Image ni = null;
+	Image he = null;
 
 	Team team1;
 	Team team2;
@@ -99,6 +112,13 @@ public class Swap extends JFrame implements ActionListener {
 			esp = ImageIO.read(getClass().getResource("/icons/250px-196Espeon.png"));
 			ma = ImageIO.read(getClass().getResource("/icons/250px-467Magmortar.png"));
 			ge = ImageIO.read(getClass().getResource("/icons/250px-094Gengar.png"));
+			ga = ImageIO.read(getClass().getResource("/icons/Gardevoir.png"));
+			he = ImageIO.read(getClass().getResource("/icons/Heracross.png"));
+			fl = ImageIO.read(getClass().getResource("/icons/Flygon.png"));
+			dr = ImageIO.read(getClass().getResource("/icons/Dragonite.png"));
+			ae = ImageIO.read(getClass().getResource("/icons/Aerodactyl.png"));
+			ni = ImageIO.read(getClass().getResource("/icons/Nidoqueen.png"));
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -190,6 +210,24 @@ public class Swap extends JFrame implements ActionListener {
 		}
 		if (b.getText().compareTo("Espeon") == 0) {
 			b.setIcon(new ImageIcon(esp));
+		}
+		if (b.getText().compareTo("Aerodactyl") == 0) {
+			b.setIcon(new ImageIcon(ae));
+		}
+		if (b.getText().compareTo("Dragonite") == 0) {
+			b.setIcon(new ImageIcon(dr));
+		}
+		if (b.getText().compareTo("Flygon") == 0) {
+			b.setIcon(new ImageIcon(fl));
+		}
+		if (b.getText().compareTo("Nidoqueen") == 0) {
+			b.setIcon(new ImageIcon(ni));
+		}
+		if (b.getText().compareTo("Gardevoir") == 0) {
+			b.setIcon(new ImageIcon(ga));
+		}
+		if (b.getText().compareTo("Heracross") == 0) {
+			b.setIcon(new ImageIcon(he));
 		}
 	}
 

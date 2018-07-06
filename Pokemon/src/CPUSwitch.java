@@ -35,6 +35,12 @@ public class CPUSwitch extends JFrame implements ActionListener {
 	Image ge = null;
 	Image br = null;
 	Image ma = null;
+	Image ga = null;
+	Image dr = null;
+	Image fl = null;
+	Image ae = null;
+	Image ni = null;
+	Image he = null;
 
 	Team team1;
 	Team team2;
@@ -61,6 +67,12 @@ public class CPUSwitch extends JFrame implements ActionListener {
 			esp = ImageIO.read(getClass().getResource("/icons/250px-196Espeon.png"));
 			ma = ImageIO.read(getClass().getResource("/icons/250px-467Magmortar.png"));
 			ge = ImageIO.read(getClass().getResource("/icons/250px-094Gengar.png"));
+			ga = ImageIO.read(getClass().getResource("/icons/Gardevoir.png"));
+			he = ImageIO.read(getClass().getResource("/icons/Heracross.png"));
+			fl = ImageIO.read(getClass().getResource("/icons/Flygon.png"));
+			dr = ImageIO.read(getClass().getResource("/icons/Dragonite.png"));
+			ae = ImageIO.read(getClass().getResource("/icons/Aerodactyl.png"));
+			ni = ImageIO.read(getClass().getResource("/icons/Nidoqueen.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -167,6 +179,24 @@ public class CPUSwitch extends JFrame implements ActionListener {
 		}
 		if (b.getText().compareTo("Espeon") == 0) {
 			b.setIcon(new ImageIcon(esp));
+		}
+		if (b.getText().compareTo("Aerodactyl") == 0) {
+			b.setIcon(new ImageIcon(ae));
+		}
+		if (b.getText().compareTo("Dragonite") == 0) {
+			b.setIcon(new ImageIcon(dr));
+		}
+		if (b.getText().compareTo("Flygon") == 0) {
+			b.setIcon(new ImageIcon(fl));
+		}
+		if (b.getText().compareTo("Nidoqueen") == 0) {
+			b.setIcon(new ImageIcon(ni));
+		}
+		if (b.getText().compareTo("Gardevoir") == 0) {
+			b.setIcon(new ImageIcon(ga));
+		}
+		if (b.getText().compareTo("Heracross") == 0) {
+			b.setIcon(new ImageIcon(he));
 		}
 	}
 	public void actionPerformed(ActionEvent e) {
