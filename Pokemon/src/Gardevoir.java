@@ -2,7 +2,7 @@
 public class Gardevoir extends pokemon {
 	Moves m=new Moves();
 	public Gardevoir() {
-		super(80,246,65,5,125,115,"Gardevoir", 8, 13);
+		super(80,246,65,65,125,115,"Gardevoir", 8, 13);
 		super.m1=new Move("Moonblast", 13, true, 90, false);
 		super.m2=new Move("Shadow Ball", 10, false, 80, false);
 		super.m3=new Move("Psychic", 8, true, 90, false);
