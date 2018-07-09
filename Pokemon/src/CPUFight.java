@@ -33,6 +33,7 @@ public class CPUFight extends JFrame implements ActionListener {
 	public JLabel firstLabel;
 	public JLabel secondLabel;
 
+	//Images
 	ImageIcon turnImage;
 	ImageIcon otherImage;
 	Image luc = null;
@@ -57,10 +58,10 @@ public class CPUFight extends JFrame implements ActionListener {
 	Image onepk = null;
 	Image twopk = null;
 	Image threepk = null;
-
+	//Pokemon HP Labels
 	JLabel tPicLabel;
 	JLabel oPicLabel;
-
+	//HP Bars
 	JProgressBar topHP;
 	JProgressBar botHP;
 
@@ -88,13 +89,17 @@ public class CPUFight extends JFrame implements ActionListener {
 	int fight;
 
 	public CPUFight(pokemon p1, pokemon p2, Team te1, Team te2, int x, int fightNum) {
+		//setting up the fight
 		fight = fightNum;
 		myPk = p1;
 		otherPk = p2;
 		myTeam = te1;
 		CPUTeam = te2;
+		//creating a brain for cpu moves
 		b = new Brain(te1, te2, p1, p2);
+		//getting the value of the move to be used before anything else, if it exists
 		y = x;
+		//getting all the images set up
 		try {
 			luc = ImageIO.read(getClass().getResource("/icons/Lucario.png"));
 			lap = ImageIO.read(getClass().getResource("/icons/250px-131Lapras.png"));
@@ -326,6 +331,7 @@ public class CPUFight extends JFrame implements ActionListener {
 		this.add(botPK);
 		this.add(topPK);
 
+		//If there is a move to be used because of a switch
 		if (y == 1) {
 			firstLabel.setText(myPk.move1(otherPk));
 			otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
@@ -367,6 +373,7 @@ public class CPUFight extends JFrame implements ActionListener {
 			botHP.setValue(myPk.HP);
 
 		}
+		//checking if that move fainted the pokemon
 		if (otherPk.HP <= 0) {
 			topHP.setValue(0);
 			otherLabel.setText(otherPk.name + ": " + 0 + "/" + otherPk.maxHP + " HP");
@@ -428,6 +435,7 @@ public class CPUFight extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		//weird bug when pokemon faints bc of switch move, so it has to be coded this way
 		if (cont == false) {
 			dispose();
 			if (myPk.HP <= 0) {
@@ -484,6 +492,7 @@ public class CPUFight extends JFrame implements ActionListener {
 				}
 
 			} else {
+				//resetting stuff if they press back
 				if (e.getSource() == backButton) {
 					mainScreen = true;
 					fightButton1.setText("Fight");
@@ -500,12 +509,14 @@ public class CPUFight extends JFrame implements ActionListener {
 					firstLabel.setText("");
 					secondLabel.setText("");
 					pokemon p = b.switchTo(otherPk, myPk);
+					//if the computer switches
 					if (p != null) {
 						JOptionPane.showMessageDialog(null, "The computer switched to " + p.name + " !");
 						CPUFight h = new CPUFight(myPk, p, myTeam, CPUTeam, 1, fight);
 						h.setVisible(true);
 						dispose();
 					} else {
+						//getting the cpu move
 						JOptionPane.showMessageDialog(null, "Thinking...");
 						int mov = b.moveToUse(otherPk, myPk);
 						if (myPk.speed > otherPk.speed) {
@@ -517,6 +528,7 @@ public class CPUFight extends JFrame implements ActionListener {
 								// if no more pokemon left
 								if (CPUTeam.alive() == 0) {
 									JOptionPane.showMessageDialog(null, otherPk.name + " fainted!\nYou win!");
+									//checking for the next fight in the sequence
 									if (fight < 4) {
 										if (fight == 1) {
 											JOptionPane.showMessageDialog(null, "On to fight 2!");
@@ -664,6 +676,7 @@ public class CPUFight extends JFrame implements ActionListener {
 							}
 						}
 					}
+					//if no pokemon fainted, reset the screen and buttons
 					mainScreen = true;
 					fightButton1.setText("Fight");
 					pkmnButton2.setText("Pokemon");
@@ -673,11 +686,13 @@ public class CPUFight extends JFrame implements ActionListener {
 					label.setText("What should " + myPk.name + " do?");
 
 					label.setBounds(350, 650, 400, 100);
-
+		
+					//second move
 				} else if (e.getSource() == pkmnButton2) {
 					firstLabel.setText("");
 					secondLabel.setText("");
 					pokemon p = b.switchTo(otherPk, myPk);
+					//if cpu switches
 					if (p != null) {
 						JOptionPane.showMessageDialog(null, "The computer switched to " + p.name + " !");
 						CPUFight h = new CPUFight(myPk, p, myTeam, CPUTeam, 2, fight);
@@ -730,6 +745,7 @@ public class CPUFight extends JFrame implements ActionListener {
 									cont = false;
 								}
 							} else {
+								//cpu move
 								otherLabel.setText(otherPk.name + ": " + otherPk.HP + "/" + otherPk.maxHP + " HP");
 								topHP.setValue(otherPk.HP);
 								if (mov == 11) {

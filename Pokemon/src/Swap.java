@@ -14,6 +14,7 @@ import java.io.IOException;
 
 public class Swap extends JFrame implements ActionListener {
 
+	//Creating all the GUI componenets
 	public JButton p1 = new JButton("");
 	public JButton p2 = new JButton("");
 	public JButton p3 = new JButton("");
@@ -25,6 +26,7 @@ public class Swap extends JFrame implements ActionListener {
 	public JButton readyButton = new JButton("Ready");
 	public JButton no = new JButton("Don't swap and move on");
 
+	//Creating the pokemon and the teams
 	Lucario luke = new Lucario(90, 250, 110, 70, 115, 70);
 	Lapras lappy = new Lapras(60, 370, 85, 80, 85, 95);
 	Golem gman = new Golem(45, 270, 120, 130, 55, 65);
@@ -50,6 +52,7 @@ public class Swap extends JFrame implements ActionListener {
 	Team te3 = new Team(dra, nid, gar, null, null, null, true);
 	Team te4 = new Team(fly, aer, her, null, null, null, true);
 
+	//Images
 	Image luc = null;
 	Image lap = null;
 	Image wal = null;
@@ -85,6 +88,7 @@ public class Swap extends JFrame implements ActionListener {
 	public Swap(Team t1, Team t2, int fightNum) {
 		team1 = t1;
 		fight = fightNum;
+		//figuring out which fight is next and what team to swap from
 		if (fight == 1) {
 			swapteam = te1;
 			team2 = te2;
@@ -98,7 +102,7 @@ public class Swap extends JFrame implements ActionListener {
 
 		readyButton.setEnabled(false);
 		back.setEnabled(false);
-
+		//image setup
 		try {
 			luc = ImageIO.read(getClass().getResource("/icons/Lucario.png"));
 			lap = ImageIO.read(getClass().getResource("/icons/250px-131Lapras.png"));
@@ -123,7 +127,7 @@ public class Swap extends JFrame implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		//setting up the GUI
 		setSize(1000, 1100);
 		p1.setFont(new Font("Serif", Font.BOLD, 26));
 		p2.setFont(new Font("Serif", Font.BOLD, 26));
@@ -173,7 +177,7 @@ public class Swap extends JFrame implements ActionListener {
 		JOptionPane.showMessageDialog(null, "Do you want to swap for any pokemon?");
 
 	}
-
+	//setting the images for the swap screen
 	public void setIcon(JButton b) {
 		if (b.getText().compareTo("Lucario") == 0) {
 			b.setIcon(new ImageIcon(luc));
@@ -232,8 +236,11 @@ public class Swap extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		//if first screen aka pick a pokemon to swap for 
 		if (swap) {
+			//if they select not to swap
 			if (e.getSource() == no) {
+				//healing/resetting stats
 				team1.pkmn[0].reset();
 				team1.pkmn[1].reset();
 				team1.pkmn[2].reset();
@@ -241,6 +248,7 @@ public class Swap extends JFrame implements ActionListener {
 				b.setVisible(true);
 				dispose();
 			} else if (e.getSource() == readyButton) {
+				//start a fight
 				team1.swap(s2, s1);
 				CPUFight b = new CPUFight(team1.pkmn[0], team2.pkmn[0], team1, team2, 0, fight + 1);
 				b.setVisible(true);
@@ -254,7 +262,7 @@ public class Swap extends JFrame implements ActionListener {
 				setIcon(p2);
 				setIcon(p3);
 			}
-
+			//Setting up the first half of the swap depending on who the user clicked
 			if (e.getSource() == p1) {
 				JOptionPane.showMessageDialog(null, "Who do you want to swap " + swapteam.pkmn[0].name + " for?");
 				swap = false;
@@ -293,6 +301,8 @@ public class Swap extends JFrame implements ActionListener {
 			}
 
 		} else {
+			//if on the second screen aka who are you going to swap
+			//setting up who you'll swap for
 			if (e.getSource() == p1) {
 				p1.setEnabled(false);
 				p2.setEnabled(true);
@@ -317,6 +327,7 @@ public class Swap extends JFrame implements ActionListener {
 				back.setEnabled(true);
 				readyButton.setEnabled(true);
 			}
+			//if no swap
 			if (e.getSource() == no) {
 				team1.pkmn[0].reset();
 				team1.pkmn[1].reset();
@@ -325,14 +336,17 @@ public class Swap extends JFrame implements ActionListener {
 				b.setVisible(true);
 				dispose();
 			} else if (e.getSource() == readyButton) {
+				//resetting stats and healing
 				team1.swap(s1, s2);
 				team1.pkmn[0].reset();
 				team1.pkmn[1].reset();
 				team1.pkmn[2].reset();
+				//starting new fight
 				CPUFight b = new CPUFight(team1.pkmn[0], team2.pkmn[0], team1, team2, 0, fight + 1);
 				b.setVisible(true);
 				dispose();
 			} else if (e.getActionCommand() == "Back") {
+				//going back to the first screen
 				back.setEnabled(false);
 				p1.setText(swapteam.pkmn[0].name);
 				p2.setText(swapteam.pkmn[1].name);

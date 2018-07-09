@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class SwitchScreen extends JFrame implements ActionListener {
-
+	//GUI components
 	private JButton p1 = new JButton("");
 	private JButton p2 = new JButton("");
 	private JButton p3 = new JButton("");
@@ -21,7 +21,7 @@ public class SwitchScreen extends JFrame implements ActionListener {
 	private JButton p6 = new JButton("");
 	
 	private JPanel whole;
-
+	//Images
 	Image luc=null;
 	Image lap=null;
 	Image wal=null;
@@ -36,6 +36,7 @@ public class SwitchScreen extends JFrame implements ActionListener {
 	boolean dead;
 
 	public SwitchScreen(Team t1, pokemon pk1, Team t2, pokemon pk2, boolean ded) {
+		//setting up images
 		try {
 			luc = ImageIO.read(getClass().getResource("icons/Lucario.png"));
 			lap= ImageIO.read(getClass().getResource("icons/250px-131Lapras.png"));
@@ -53,6 +54,7 @@ public class SwitchScreen extends JFrame implements ActionListener {
 		turn = pk1;
 		team2 = t2;
 		other = pk2;
+		//setting up GUI
 		setSize(1000, 1000);
 		p1.setFont(new Font("Serif", Font.BOLD, 26));
 		p2.setFont(new Font("Serif", Font.BOLD, 26));
@@ -69,6 +71,7 @@ public class SwitchScreen extends JFrame implements ActionListener {
 		p6.addActionListener(this);
 
 		whole = new JPanel(new GridLayout(3, 2));
+		//setting up the screen with labels and images
 		if (t1.pkmn[0] != null) {
 			p1.setText(t1.pkmn[0].name);
 			if(p1.getText().compareTo("Lucario")==0) {
@@ -207,6 +210,7 @@ public class SwitchScreen extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		//
 		if (e.getActionCommand() == "") {
 
 		} else if (e.getSource() == p1 && team1.pkmn[0].HP <= 0) {

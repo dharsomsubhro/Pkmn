@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class pick3 extends JFrame implements ActionListener {
-
+	//GUI components
 	public JButton p1 = new JButton("");
 	public JButton p2 = new JButton("");
 	public JButton p3 = new JButton("");
@@ -24,7 +24,7 @@ public class pick3 extends JFrame implements ActionListener {
 	public JButton back = new JButton("Back");
 	public JPanel whole;
 	public JButton readyButton = new JButton("Ready");
-
+	//starting option pokemon
 	Lucario luke = new Lucario(90, 250, 110, 70, 115, 70);
 	Lapras lappy = new Lapras(60, 370, 85, 80, 85, 95);
 	Golem gman = new Golem(45, 270, 120, 130, 55, 65);
@@ -33,7 +33,7 @@ public class pick3 extends JFrame implements ActionListener {
 	Camerupt kam = new Camerupt(40, 250, 100, 70, 105, 75);
 
 	
-
+	//Images
 	Image luc = null;
 	Image lap = null;
 	Image wal = null;
@@ -56,7 +56,7 @@ public class pick3 extends JFrame implements ActionListener {
 		readyButton.setEnabled(false);
 		back.setEnabled(false);
 		y = x;
-
+		//setting up images
 		try {
 			luc = ImageIO.read(getClass().getResource("/icons/Lucario.png"));
 			lap = ImageIO.read(getClass().getResource("/icons/250px-131Lapras.png"));
@@ -68,7 +68,7 @@ public class pick3 extends JFrame implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		//setting up GUI
 		dead = ded;
 		team1 = t1;
 		turn = pk1;
@@ -128,11 +128,16 @@ public class pick3 extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (readyButton.isEnabled()) {
+			//if user has picked all 3 pokemon
 			if (e.getSource() == readyButton) {
+				//start a fight with the 3 picked
 				CPUFight b = new CPUFight(team1.pkmn[0], other, team1, team2, 0, 1);
 				b.setVisible(true);
 				dispose();
+				//if they go back
 			} else if (e.getActionCommand() == "Back") {
+				//figuring out how many pokemon they picked and getting rid
+				//of most recent one
 				if (thirdPick != null) {
 					thirdPick.setEnabled(true);
 					thirdPick = null;
@@ -150,11 +155,13 @@ public class pick3 extends JFrame implements ActionListener {
 				team1.remove();
 			}
 		} else {
+			//if they haven't picked all 3 pokemon yet
 			if (e.getSource() == readyButton) {
 				CPUFight b = new CPUFight(team1.pkmn[0], other, team1, team2, 0, 1);
 				b.setVisible(true);
 				dispose();
 			} else if (e.getActionCommand() == "Back") {
+				//same as before, getting rid of most recent pokemon
 				if (thirdPick != null) {
 					thirdPick.setEnabled(true);
 					thirdPick = null;
@@ -170,7 +177,10 @@ public class pick3 extends JFrame implements ActionListener {
 					}
 				}
 				team1.remove();
-			} else if (e.getSource() == p6) {
+			} 
+			
+			/* All the pokemon to add */
+			else if (e.getSource() == p6) {
 				p6.setEnabled(false);
 				team1.add(lappy);
 				back.setEnabled(true);

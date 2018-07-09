@@ -8,6 +8,7 @@ public class Gardevoir extends pokemon {
 		super.m3=new Move("Psychic", 8, true, 90, false);
 		super.m4=new Move("Thunderbolt", 4, false, 90, false);
 	}
+	/* Returning strings for the action labels */
 	public String showMove1() {
 		return m1.name;
 	}
@@ -20,6 +21,7 @@ public class Gardevoir extends pokemon {
 	public String showMove4() {
 		return m4.name;
 	}
+	/* The moves */
 	public String move1(pokemon p) {
 		return m.moonblast(this,p);
 	}

@@ -14,6 +14,7 @@ import java.io.IOException;
 
 public class CPUSwitch extends JFrame implements ActionListener {
 
+	//GUI components
 	public JButton p1 = new JButton("");
 	public JButton p2 = new JButton("");
 	public JButton p3 = new JButton("");
@@ -23,6 +24,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 	public JButton back = new JButton("Back");
 	public JPanel whole;
 
+	//Images
 	Image luc = null;
 	Image lap = null;
 	Image wal = null;
@@ -54,6 +56,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 	public CPUSwitch(Team t1, pokemon pk1, Team t2, pokemon pk2, boolean ded, int x, pokemon b, int f) {
 		fight=f;
 		y = x;
+		//Setting up images
 		try {
 			luc = ImageIO.read(getClass().getResource("/icons/Lucario.png"));
 			lap = ImageIO.read(getClass().getResource("/icons/250px-131Lapras.png"));
@@ -84,6 +87,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 		team2 = t2;
 		other = pk2;
 		ba = b;
+		//setting up GUI
 		setSize(1000, 1000);
 		p1.setFont(new Font("Serif", Font.BOLD, 26));
 		p2.setFont(new Font("Serif", Font.BOLD, 26));
@@ -120,6 +124,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		add(whole);
 		add(bac);
+		//Checking for forced switch bc pokemon fainted
 		if (pk1 == null || ba == null) {
 			back.setEnabled(false);
 		}
@@ -143,6 +148,7 @@ public class CPUSwitch extends JFrame implements ActionListener {
 		}
 
 	}
+	//setting images correctly
 	public void setIcon(JButton b) {
 		if (b.getText().compareTo("Lucario") == 0) {
 			b.setIcon(new ImageIcon(luc));
@@ -199,14 +205,18 @@ public class CPUSwitch extends JFrame implements ActionListener {
 			b.setIcon(new ImageIcon(he));
 		}
 	}
+	
 	public void actionPerformed(ActionEvent e) {
+		//if they go back, restart the fight from where it was
 		if (e.getActionCommand() == "Back") {
 			CPUFight b = new CPUFight(turn, ba, team1, team2, 0, fight);
 			b.setVisible(true);
 			dispose();
 		} else if (e.getActionCommand() == "") {
 
-		} else if (e.getSource() == p6) {
+		} 
+		/*Making the necessary switches */
+		else if (e.getSource() == p6) {
 			if (team1.pkmn[5] == turn) {
 				JOptionPane.showMessageDialog(null, turn.name + " is already in battle!");
 			} else {

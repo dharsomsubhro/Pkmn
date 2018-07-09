@@ -22,6 +22,11 @@ public class Brain {
 
 		/* Calculating p1rating */
 		if (CPUTeam.pkmn[0].monotype) {
+			//Type effectiveness
+			//If cputype is supereffective, rating increases by one,
+			//if 4x effective, rating increases by 2
+			//if 0.5 effective, rating decreases by 1,
+			//if 0.25, rating decreases by 2
 			if (mp.monotype) {
 				effective = t.effective(CPUTeam.pkmn[0].type1, mp.type1);
 				if (effective == 2) {
@@ -153,6 +158,11 @@ public class Brain {
 		}
 		/* Calculating p2rating */
 		if (CPUTeam.pkmn[1].monotype) {
+			//Type effectiveness
+			//If cputype is supereffective, rating increases by one,
+			//if 4x effective, rating increases by 2
+			//if 0.5 effective, rating decreases by 1,
+			//if 0.25, rating decreases by 2
 			if (mp.monotype) {
 				effective = t.effective(CPUTeam.pkmn[1].type1, mp.type1);
 				if (effective == 2) {
@@ -284,6 +294,11 @@ public class Brain {
 		}
 		/* Calculating p3rating */
 		if (CPUTeam.pkmn[2].monotype) {
+			//Type effectiveness
+			//If cputype is supereffective, rating increases by one,
+			//if 4x effective, rating increases by 2
+			//if 0.5 effective, rating decreases by 1,
+			//if 0.25, rating decreases by 2
 			if (mp.monotype) {
 				effective = t.effective(CPUTeam.pkmn[2].type1, mp.type1);
 				if (effective == 2) {
@@ -413,11 +428,14 @@ public class Brain {
 
 			}
 		}
+		//picking the pokemon to switch to
 		pokemon x = null;
+		//getting the max rating
 		int p = Math.max(Math.max(p1rating, p2rating), p3rating);
 		int first = 0;
 		int second = 0;
 		int third = 0;
+		//figuring out which one had the max rating
 		if (p == p1rating) {
 			first = 0;
 			p = Math.max(p2rating, p3rating);
@@ -449,6 +467,7 @@ public class Brain {
 				third = 1;
 			}
 		}
+		//making sure the pokemon is still alive
 		if (CPUTeam.pkmn[first].HP <= 0) {
 			if (CPUTeam.pkmn[second].HP <= 0) {
 				x = CPUTeam.pkmn[third];
@@ -458,6 +477,7 @@ public class Brain {
 		} else {
 			x = CPUTeam.pkmn[first];
 		}
+		//if the best fit is already in battle, it won't switch
 		if (x == cp) {
 			return null;
 		}

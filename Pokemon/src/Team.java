@@ -18,6 +18,7 @@ public class Team {
 		setLast();
 	}
 
+	//helper method for getting the last pokemon in the team
 	private void setLast() {
 		if(pkmn[0]==null) {
 			last=0;
@@ -40,6 +41,7 @@ public class Team {
 		
 		
 	}
+	//returns how many pokemon are still alive in the team
 	public int alive() {
 		int x = 0;
 		if (pkmn[0] != null && pkmn[0].HP > 0) {
@@ -68,14 +70,17 @@ public class Team {
 		return x;
 
 	}
+	//adds a pokemon to the team for pick3
 	public void add(pokemon p) {
 		setLast();
 		pkmn[last]=p;
 	}
+	//removes the last pokemon added to the team for pick3
 	public void remove() {
 		setLast();
 		pkmn[last-1]=null;
 	}
+	//swaps the pokemon on the team with the new pokemon for swap
 	public void swap(pokemon p1, pokemon p2) {
 		if(p1==pkmn[0]) {
 			pkmn[0]=p2;
